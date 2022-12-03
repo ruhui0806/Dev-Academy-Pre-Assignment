@@ -1,2 +1,7 @@
 # Dev-Academy-Preassignment
-This is a repo for Dev Academy: Helsinki city bike app (Dev Academy pre-assignment)
+
+# Description:
+
+This is a repo for dev academy 2023 exercise: Helsinki city bike app (Dev Academy pre-assignment). Below are the details of the exercise:
+
+---
