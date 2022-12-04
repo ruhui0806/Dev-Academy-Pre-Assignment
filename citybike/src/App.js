@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header'
+import {
+    ApolloProvider,
+    ApolloClient,
+    InMemoryCache,
+    HttpLink,
+} from '@apollo/client'
+import Stations from './components/Stations'
+
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: new HttpLink({
+        uri: 'http://localhost:9000/graphql',
+    }),
+})
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <ApolloProvider client={client}>
+                <Header />
+                <div className="container">
+                    <Stations />
+                </div>
+            </ApolloProvider>
+        </>
+    )
 }
 
-export default App;
+export default App
