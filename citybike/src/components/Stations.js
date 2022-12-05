@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
+import Pagination from './Pagination'
 import StationView from './StationView'
 const GET_STATIONS = gql`
-    query getStations {
-        stations {
+    query getStations($limit: Int!, $skip: Int!) {
+        stations(limit: $limit, offset: $skip) {
             Adress
             ID
             Name
@@ -20,14 +21,40 @@ const GET_STATIONS = gql`
         }
     }
 `
+const COUNT_STATIONS = gql`
+    query countAllstations {
+        countAllstations
+    }
+`
 
 export default function Stations() {
-    const { loading, error, data } = useQuery(GET_STATIONS)
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>Error!</div>
+    const [stationsPerPage, setStationsPerPage] = useState(10)
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const stationsResult = useQuery(GET_STATIONS, {
+        variables: {
+            limit: stationsPerPage,
+            skip: (currentPage - 1) * stationsPerPage,
+        },
+    })
+    const stationsCount = useQuery(COUNT_STATIONS)
+    if (stationsResult.loading) return <div>Loading...</div>
+    if (stationsResult.error) return <div>Error!</div>
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const lastPage = Math.ceil(
+        stationsCount.data.countAllstations / stationsPerPage
+    )
+    // console.log(
+    //     stationsResult.data,
+    //     stationsCount.data.countAllstations,
+    //     stationsPerPage,
+    //     lastPage
+    // )
+
     return (
         <div>
-            <table>
+            <table className="table table-hover mt-3">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -35,8 +62,8 @@ export default function Stations() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data &&
-                        data.stations.map((station) => (
+                    {stationsResult.data &&
+                        stationsResult.data.stations.map((station) => (
                             <tr key={station.ID}>
                                 <td>{station.Name}</td>
                                 <td>{station.ID}</td>
@@ -44,6 +71,13 @@ export default function Stations() {
                         ))}
                 </tbody>
             </table>
+            <Pagination
+                stationsPerPage={stationsPerPage}
+                lastPage={lastPage}
+                currentPage={currentPage}
+                paginate={paginate}
+                totalStations={stationsResult.data.countAllstations}
+            />
         </div>
     )
 }

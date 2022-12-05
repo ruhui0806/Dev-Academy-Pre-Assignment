@@ -85,11 +85,36 @@ const RootQuery = new GraphQLObjectType({
 
         stations: {
             type: new GraphQLList(StationType),
+            args: {
+                limit: {
+                    name: 'limit',
+                    type: GraphQLInt,
+                },
+                offset: {
+                    name: 'offset',
+                    type: GraphQLInt,
+                },
+                // pageSize: {
+                //     name: 'pageSize',
+                //     type: GraphQLInt,
+                // },
+                after: {
+                    name: 'after',
+                    type: GraphQLString,
+                },
+            },
             resolve(parent, args) {
                 // return stations
-                return Station.find()
+                return Station.find().limit(args.limit).skip(args.offset)
             },
         },
+        countAllstations: {
+            type: GraphQLInt,
+            resolve(parent, args) {
+                return Station.find().count()
+            },
+        },
+
         findStationByCity: {
             type: new GraphQLList(StationType),
             args: { city: { type: GraphQLString } },

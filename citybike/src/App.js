@@ -7,6 +7,7 @@ import {
     HttpLink,
 } from '@apollo/client'
 import Stations from './components/Stations'
+import Journeys from './components/Journeys'
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -24,19 +25,20 @@ function App() {
                     <div className="container">
                         <div className="d-flex gap-2">
                             <Link to="/" className="btn btn-primary p1-1">
-                                home
+                                Home
                             </Link>
 
                             <Link to="/stations" className="btn btn-primary">
                                 Stations
                             </Link>
-                            <Link to="/projects" className="btn btn-primary">
-                                projects
+                            <Link to="/journeys" className="btn btn-primary">
+                                Journeys
                             </Link>
-                            <hr />
                         </div>
+                        <hr />
                         <Routes>
                             <Route path="/stations" element={<Stations />} />
+                            <Route path="/journeys" element={<Journeys />} />
                         </Routes>
                     </div>
                 </Router>
