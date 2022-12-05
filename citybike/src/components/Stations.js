@@ -1,5 +1,6 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
+import StationView from './StationView'
 const GET_STATIONS = gql`
     query getStations {
         stations {
@@ -26,7 +27,23 @@ export default function Stations() {
     if (error) return <div>Error!</div>
     return (
         <div>
-            {data && data.stations.map((station) => <p>{station.Name}</p>)}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data &&
+                        data.stations.map((station) => (
+                            <tr key={station.ID}>
+                                <td>{station.Name}</td>
+                                <td>{station.ID}</td>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
         </div>
     )
 }
