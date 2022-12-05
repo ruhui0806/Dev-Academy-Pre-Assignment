@@ -105,7 +105,10 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 // return stations
-                return Station.find().limit(args.limit).skip(args.offset)
+                return Station.find()
+                    .sort({ ID: 1 })
+                    .limit(args.limit)
+                    .skip(args.offset)
             },
         },
         countAllstations: {
