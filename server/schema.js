@@ -109,19 +109,18 @@ const RootQuery = new GraphQLObjectType({
                     name: 'offset',
                     type: GraphQLInt,
                 },
-                after: {
-                    name: 'after',
-                    type: GraphQLString,
-                },
             },
             resolve(parent, args) {
                 // return stations
-                return Station.find()
-                    .sort({ ID: 1 })
-                    .limit(args.limit)
-                    .skip(args.offset)
+                return Station.find({}).limit(args.limit).skip(args.offset)
             },
         },
+        // getAllstations: {
+        //     type: new GraphQLList(StationType),
+        //     resolve(parent, args) {
+        //         return Station.find({})
+        //     },
+        // },
         countAllstations: {
             type: GraphQLInt,
             resolve(parent, args) {

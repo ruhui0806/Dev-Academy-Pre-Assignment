@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
+import LoadingSpinner from './LoadingSpinner'
 const GET_JOURNEYS = gql`
     query getJourneys($limit: Int!, $skip: Int!) {
         journeys(limit: $limit, offset: $skip) {
@@ -32,7 +33,7 @@ const Journeys = () => {
     })
 
     const journeysCount = useQuery(COUNT_JOURNEYS)
-    if (journeysResult.loading) return <div>Loading...</div>
+    if (journeysResult.loading) return <LoadingSpinner />
     if (journeysResult.error) return <div>Error!</div>
     const lastPage = Math.ceil(
         journeysCount.data.countAllstations / journeysCount

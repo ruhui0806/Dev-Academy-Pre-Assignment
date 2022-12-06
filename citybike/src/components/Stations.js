@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
-import StationView from './StationView'
 import PaginationButtons from './PaginationButtons'
+import LoadingSpinner from './LoadingSpinner'
+import { Link } from 'react-router-dom'
+
+//queries:
 const GET_STATIONS = gql`
     query getStations($limit: Int!, $skip: Int!) {
         stations(limit: $limit, offset: $skip) {
@@ -28,7 +31,7 @@ const COUNT_STATIONS = gql`
     }
 `
 
-export default function Stations() {
+const Stations = () => {
     const [stationsPerPage, setStationsPerPage] = useState(10)
     const [currentPage, setCurrentPage] = useState(1)
 
@@ -39,7 +42,7 @@ export default function Stations() {
         },
     })
     const stationsCount = useQuery(COUNT_STATIONS)
-    if (stationsResult.loading) return <div>Loading...</div>
+    if (stationsResult.loading) return <LoadingSpinner />
     if (stationsResult.error) return <div>Error!</div>
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
@@ -59,7 +62,14 @@ export default function Stations() {
                     {stationsResult.data &&
                         stationsResult.data.stations.map((station) => (
                             <tr key={station.ID}>
-                                <td>{station.Name}</td>
+                                <td>
+                                    <Link
+                                        to={`/stations/${station.ID}`}
+                                        className="page-link "
+                                    >
+                                        {station.Name}
+                                    </Link>
+                                </td>
                                 <td>{station.ID}</td>
                             </tr>
                         ))}
@@ -70,7 +80,8 @@ export default function Stations() {
                 currentPage={currentPage}
                 paginate={paginate}
             />
-            {/* <PaginationButtons lastPage={lastPage} /> */}
         </div>
     )
 }
+
+export default Stations

@@ -8,6 +8,9 @@ import {
 } from '@apollo/client'
 import Stations from './components/Stations'
 import Journeys from './components/Journeys'
+import StationView from './components/StationView'
+import NotFound from './components/NotFound'
+import Home from './components/Home'
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -28,17 +31,23 @@ function App() {
                                 Home
                             </Link>
 
-                            <Link to="/stations" className="btn btn-primary">
-                                Stations
-                            </Link>
                             <Link to="/journeys" className="btn btn-primary">
                                 Journeys
+                            </Link>
+                            <Link to="/stations" className="btn btn-primary">
+                                Stations
                             </Link>
                         </div>
                         <hr />
                         <Routes>
-                            <Route path="/stations" element={<Stations />} />
+                            <Route path="/" element={<Home />} />
                             <Route path="/journeys" element={<Journeys />} />
+                            <Route path="/stations" element={<Stations />} />
+                            <Route
+                                path="/stations/:id"
+                                element={<StationView />}
+                            />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
                 </Router>
