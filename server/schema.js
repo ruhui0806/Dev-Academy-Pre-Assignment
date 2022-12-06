@@ -53,11 +53,26 @@ const StationType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        allJourneys: {
+        journeys: {
             type: new GraphQLList(JourneyType),
+            args: {
+                limit: {
+                    name: 'limit',
+                    type: GraphQLInt,
+                },
+                offset: {
+                    name: 'offset',
+                    type: GraphQLInt,
+                },
+            },
             resolve(parent, args) {
-                // return journeys
-                return Journey.find()
+                return Journey.find().limit(args.limit).skip(args.offset)
+            },
+        },
+        countAlljourneys: {
+            type: GraphQLInt,
+            resolve(parent, args) {
+                return Journey.find().count()
             },
         },
         findJourneyByDepature: {
@@ -94,10 +109,6 @@ const RootQuery = new GraphQLObjectType({
                     name: 'offset',
                     type: GraphQLInt,
                 },
-                // pageSize: {
-                //     name: 'pageSize',
-                //     type: GraphQLInt,
-                // },
                 after: {
                     name: 'after',
                     type: GraphQLString,

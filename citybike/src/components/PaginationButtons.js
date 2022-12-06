@@ -1,14 +1,22 @@
 import Pagination from 'react-bootstrap/Pagination'
 
-function PaginationButtons() {
+const PaginationButtons = ({ lastPage }) => {
+    const pageNumers = []
+    for (let i = 0; i < lastPage; i++) {
+        pageNumers.push(i)
+    }
+
     return (
         <Pagination>
             <Pagination.First />
             <Pagination.Prev />
-            <Pagination.Item onClick={() => console.log('item 1 is clicked')}>
-                {1}
-            </Pagination.Item>
+            <Pagination.Item>{1}</Pagination.Item>
             <Pagination.Ellipsis />
+            {/* {pageNumers.map((number) => (
+                <li key={number} className="page-item">
+                    <Pagination.Item active>{number}</Pagination.Item>
+                </li>
+            ))} */}
 
             <Pagination.Item>{10}</Pagination.Item>
             <Pagination.Item>{11}</Pagination.Item>

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React from 'react'
 
 const Pagination = ({ lastPage, paginate, currentPage }) => {
     return (
@@ -12,7 +12,7 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
                         aria-label="Previous"
                         onClick={
                             currentPage === 1
-                                ? paginate(currentPage)
+                                ? () => paginate(currentPage)
                                 : () => paginate(currentPage - 1)
                         }
                     >
@@ -37,7 +37,7 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
                         aria-label="Next"
                         onClick={
                             currentPage === lastPage
-                                ? paginate(currentPage)
+                                ? () => paginate(currentPage)
                                 : () => paginate(currentPage + 1)
                         }
                     >

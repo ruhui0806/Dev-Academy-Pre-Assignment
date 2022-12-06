@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
 import StationView from './StationView'
+import PaginationButtons from './PaginationButtons'
 const GET_STATIONS = gql`
     query getStations($limit: Int!, $skip: Int!) {
         stations(limit: $limit, offset: $skip) {
@@ -45,13 +46,6 @@ export default function Stations() {
     const lastPage = Math.ceil(
         stationsCount.data.countAllstations / stationsPerPage
     )
-    // console.log(
-    //     stationsResult.data,
-    //     stationsCount.data.countAllstations,
-    //     stationsPerPage,
-    //     lastPage
-    // )
-
     return (
         <div>
             <table className="table table-hover mt-3">
@@ -72,12 +66,11 @@ export default function Stations() {
                 </tbody>
             </table>
             <Pagination
-                stationsPerPage={stationsPerPage}
                 lastPage={lastPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalStations={stationsResult.data.countAllstations}
             />
+            {/* <PaginationButtons lastPage={lastPage} /> */}
         </div>
     )
 }
