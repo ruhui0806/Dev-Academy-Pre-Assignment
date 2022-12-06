@@ -75,6 +75,29 @@ const RootQuery = new GraphQLObjectType({
                 return Journey.find().count()
             },
         },
+        countJourneysbyDepartureId: {
+            type: GraphQLInt,
+            args: {
+                departureId: { type: GraphQLInt },
+            },
+            resolve(parent, args) {
+                return Journey.find({
+                    Departure_station_id: args.departureId,
+                }).count()
+            },
+        },
+        countJourneysbyReturnId: {
+            type: GraphQLInt,
+            args: {
+                returnId: { type: GraphQLInt },
+            },
+            resolve(parent, args) {
+                return Journey.find({
+                    Return_station_id: args.returnId,
+                }).count()
+            },
+        },
+
         findJourneyByDepature: {
             type: new GraphQLList(JourneyType),
             args: { departure: { type: GraphQLString } },

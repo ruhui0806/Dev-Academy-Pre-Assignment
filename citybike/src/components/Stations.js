@@ -4,32 +4,7 @@ import Pagination from './Pagination'
 import PaginationButtons from './PaginationButtons'
 import LoadingSpinner from './LoadingSpinner'
 import { Link } from 'react-router-dom'
-
-//queries:
-const GET_STATIONS = gql`
-    query getStations($limit: Int!, $skip: Int!) {
-        stations(limit: $limit, offset: $skip) {
-            Adress
-            ID
-            Name
-            Nimi
-            Namn
-            Osoite
-            Kaupunki
-            Stad
-            Operaattor
-            Kapasiteet
-            x
-            y
-            location
-        }
-    }
-`
-const COUNT_STATIONS = gql`
-    query countAllstations {
-        countAllstations
-    }
-`
+import { GET_STATIONS, COUNT_STATIONS } from '../queries'
 
 const Stations = () => {
     const [stationsPerPage, setStationsPerPage] = useState(10)

@@ -2,26 +2,7 @@ import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
 import LoadingSpinner from './LoadingSpinner'
-const GET_JOURNEYS = gql`
-    query getJourneys($limit: Int!, $skip: Int!) {
-        journeys(limit: $limit, offset: $skip) {
-            Departure
-            Return
-            Departure_station_id
-            Departure_station_name
-            Return_station_id
-            Return_station_name
-            Covered_distance_m
-            Duration_sec
-            id
-        }
-    }
-`
-const COUNT_JOURNEYS = gql`
-    query countAlljourneys {
-        countAlljourneys
-    }
-`
+import { GET_JOURNEYS, COUNT_JOURNEYS } from '../queries'
 const Journeys = () => {
     const [journeysPerPage, setJourneysPerPage] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
