@@ -41,6 +41,25 @@ const GET_STATIONS = gql`
         }
     }
 `
+const GET_ALL_STATIONS = gql`
+    query getAllstations {
+        stations {
+            Adress
+            ID
+            Name
+            Nimi
+            Namn
+            Osoite
+            Kaupunki
+            Stad
+            Operaattor
+            Kapasiteet
+            x
+            y
+            location
+        }
+    }
+`
 const COUNT_STATIONS = gql`
     query countAllstations {
         countAllstations
@@ -73,6 +92,7 @@ export {
     COUNT_JOURNEY_START_FROM_HERE,
     COUNT_JOURNEY_END_AT_HERE,
     GET_STATIONS,
+    GET_ALL_STATIONS,
     COUNT_STATIONS,
     GET_JOURNEYS,
     COUNT_JOURNEYS,

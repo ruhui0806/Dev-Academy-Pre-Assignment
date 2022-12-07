@@ -138,12 +138,12 @@ const RootQuery = new GraphQLObjectType({
                 return Station.find({}).limit(args.limit).skip(args.offset)
             },
         },
-        // getAllstations: {
-        //     type: new GraphQLList(StationType),
-        //     resolve(parent, args) {
-        //         return Station.find({})
-        //     },
-        // },
+        getAllstations: {
+            type: new GraphQLList(StationType),
+            resolve(parent, args) {
+                return Station.find({})
+            },
+        },
         countAllstations: {
             type: GraphQLInt,
             resolve(parent, args) {

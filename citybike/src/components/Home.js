@@ -12,7 +12,11 @@ import Journeys from './Journeys'
 import StationView from './StationView'
 
 const Home = () => {
-    return <div>This is the home page</div>
+    return (
+        <div>
+            <h1>This is the home page</h1>
+        </div>
+    )
 }
 
 export default Home
