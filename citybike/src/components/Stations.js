@@ -3,15 +3,20 @@ import { gql, useQuery } from '@apollo/client'
 import ReactPaginate from 'react-paginate'
 import LoadingSpinner from './LoadingSpinner'
 import { Link } from 'react-router-dom'
+import { FaArrowsAltV } from 'react-icons/fa'
 import { GET_ALL_STATIONS, COUNT_STATIONS } from '../queries'
 
 const Stations = () => {
+    // const indexOfLastStation = currentPage * stationsPerPage
+    // const indexOfFirstStation = indexOfLastStation - stationsPerPage
+
     const [stationsPerPage, setStationsPerPage] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
     const [indexOfFirstStation, setIndexOfFirstStation] = useState(0)
-
-    // const indexOfLastStation = currentPage * stationsPerPage
-    // const indexOfFirstStation = indexOfLastStation - stationsPerPage
+    const [sortConfig, setSortConfig] = useState({
+        attr: 'ID',
+        direction: 'ascending',
+    })
 
     const indexOfLastStation = indexOfFirstStation + stationsPerPage
 
@@ -26,6 +31,7 @@ const Stations = () => {
     const lastPage = Math.ceil(
         stationsCount.data.countAllstations / stationsPerPage
     )
+
     const handlePageClick = (event) => {
         const newOffset =
             (event.selected * stationsPerPage) %
@@ -36,18 +42,42 @@ const Stations = () => {
         setIndexOfFirstStation(newOffset)
         setCurrentPage(event.selected + 1)
     }
+
+    const SortByColumn = (a, b) => {
+        if (a[sortConfig.attr] < b[sortConfig.attr]) {
+            return sortConfig.direction === 'ascending' ? -1 : 1
+        }
+        if (a[sortConfig.attr] > b[sortConfig.attr]) {
+            return sortConfig.direction === 'ascending' ? 1 : -1
+        }
+        return 0
+    }
+    const requestSort = (attr) => {
+        let direction = 'ascending'
+        if (sortConfig.attr === attr && sortConfig.direction === 'ascending') {
+            direction = 'descending'
+        }
+        setSortConfig({ attr, direction })
+    }
     return (
         <div>
             <table className="table table-hover mt-3">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>ID</th>
+                        <th>
+                            ID
+                            <span onClick={() => requestSort('ID')}>
+                                {' '}
+                                <FaArrowsAltV />
+                            </span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {stationsResult.data &&
-                        stationsResult.data.stations
+                        [...stationsResult.data.stations]
+                            .sort(SortByColumn)
                             .slice(indexOfFirstStation, indexOfLastStation)
                             .map((station) => (
                                 <tr key={station.ID}>
