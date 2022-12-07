@@ -7,7 +7,6 @@ import { FaArrowsAltV } from 'react-icons/fa'
 const Journeys = () => {
     const [journeysPerPage, setJourneysPerPage] = useState(10)
     const [currentPage, setCurrentPage] = useState(1)
-    const [sortedField, setSortedField] = useState(null)
     const [sortConfig, setSortConfig] = useState({
         attr: 'Duration_sec',
         direction: 'ascending',
