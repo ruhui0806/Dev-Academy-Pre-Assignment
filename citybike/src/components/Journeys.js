@@ -1,31 +1,49 @@
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
+import ReactPaginate from 'react-paginate'
 import LoadingSpinner from './LoadingSpinner'
-import { GET_JOURNEYS, COUNT_JOURNEYS } from '../queries'
+import { GET_ALL_JOURNEYS, COUNT_JOURNEYS, GET_JOURNEYS } from '../queries'
 import { FaArrowsAltV } from 'react-icons/fa'
+
 const Journeys = () => {
-    const [journeysPerPage, setJourneysPerPage] = useState(10)
+    const [journeysPerPage, setJourneysPerPage] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
+    // const [indexOfFirstItem, setIndexOfFirstItem] = useState(0)
     const [sortConfig, setSortConfig] = useState({
         attr: 'Duration_sec',
         direction: 'ascending',
     })
+
+    // const indexOfLastItem = indexOfFirstItem + journeysPerPage
+
+    // const journeysResult = useQuery(GET_ALL_JOURNEYS, {
+    //     fetchPolicy: 'cache-first',
+    // })
     const journeysResult = useQuery(GET_JOURNEYS, {
         variables: {
             limit: journeysPerPage,
             skip: (currentPage - 1) * journeysPerPage,
         },
+        fetchPolicy: 'cache-first',
     })
+
     console.log(journeysResult.data)
 
     const journeysCount = useQuery(COUNT_JOURNEYS)
     if (journeysResult.loading) return <LoadingSpinner />
     if (journeysResult.error) return <div>Error!</div>
-    const lastPage = Math.ceil(
-        journeysCount.data.countAllstations / journeysCount
-    )
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const lastPage = Math.ceil(
+        journeysCount.data.countAlljourneys / journeysPerPage
+    )
+
+    const handlePageClick = (event) => {
+        console.log(event.selected)
+
+        setCurrentPage(event.selected + 1)
+    }
 
     const SortByColumn = (a, b) => {
         if (a[sortConfig.attr] < b[sortConfig.attr]) {
@@ -114,6 +132,29 @@ const Journeys = () => {
                 lastPage={lastPage}
                 currentPage={currentPage}
                 paginate={paginate}
+            />
+
+            <ReactPaginate
+                className="pagination justify-content-center"
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={1}
+                pageCount={lastPage}
+                previousLabel="< previous"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                activeLinkClassName="page-link"
+                renderOnZeroPageCount={null}
             />
         </div>
     )

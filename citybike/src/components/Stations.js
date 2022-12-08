@@ -20,8 +20,10 @@ const Stations = () => {
 
     const indexOfLastStation = indexOfFirstStation + stationsPerPage
 
-    const stationsResult = useQuery(GET_ALL_STATIONS)
-    console.log(stationsResult.data)
+    const stationsResult = useQuery(GET_ALL_STATIONS, {
+        fetchPolicy: 'cache-first',
+    })
+    console.log('stationsResult.data: ', stationsResult.data) //{stations: Array(457)}
 
     const stationsCount = useQuery(COUNT_STATIONS)
     if (stationsResult.loading) return <LoadingSpinner />
@@ -33,11 +35,10 @@ const Stations = () => {
     )
 
     const handlePageClick = (event) => {
-        const newOffset =
-            (event.selected * stationsPerPage) %
-            stationsCount.data.countAllstations
+        const newOffset = event.selected * stationsPerPage
+
         console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
+            `User requested page number ${event.selected}, which is the new offset ${newOffset}`
         )
         setIndexOfFirstStation(newOffset)
         setCurrentPage(event.selected + 1)
@@ -109,8 +110,8 @@ const Stations = () => {
                 className="pagination justify-content-center"
                 nextLabel="next >"
                 onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={1}
                 pageCount={lastPage}
                 previousLabel="< previous"
                 pageClassName="page-item"
