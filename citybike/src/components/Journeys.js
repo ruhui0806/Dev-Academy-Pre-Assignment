@@ -38,6 +38,7 @@ const Journeys = () => {
     const lastPage = Math.ceil(
         journeysCount.data.countAlljourneys / journeysPerPage
     )
+    console.log('last page in Journey list: ', lastPage)
 
     const handlePageClick = (event) => {
         console.log(event.selected)
