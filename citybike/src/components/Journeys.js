@@ -16,10 +16,10 @@ const Journeys = () => {
     })
 
     // const indexOfLastItem = indexOfFirstItem + journeysPerPage
-
     // const journeysResult = useQuery(GET_ALL_JOURNEYS, {
     //     fetchPolicy: 'cache-first',
     // })
+
     const journeysResult = useQuery(GET_JOURNEYS, {
         variables: {
             limit: journeysPerPage,
@@ -42,8 +42,10 @@ const Journeys = () => {
 
     const handlePageClick = (event) => {
         console.log(event.selected)
-
         setCurrentPage(event.selected + 1)
+        var pageSelected = event.selected + 1
+        console.log('page selected: ', pageSelected + 1)
+        return pageSelected
     }
 
     const SortByColumn = (a, b) => {
@@ -139,7 +141,9 @@ const Journeys = () => {
                 className="pagination justify-content-center"
                 nextLabel="next >"
                 onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
+                forcePage={currentPage - 1}
+                onPageActive={() => paginate(currentPage - 1)}
+                pageRangeDisplayed={12}
                 marginPagesDisplayed={1}
                 pageCount={lastPage}
                 previousLabel="< previous"

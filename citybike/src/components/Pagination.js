@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 const Pagination = ({ lastPage, paginate, currentPage }) => {
-    const [currentValue, setCurrentValue] = useState(null)
+    const [currentValue, setCurrentValue] = useState('')
     return (
         <nav aria-label="Page navigation">
             <ul className="pagination justify-content-center">
@@ -30,15 +30,15 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
                         {currentPage}
                     </a>
                 </li>
-                <li className="page-item" key={currentPage}>
+                <li className="page-item" key="{jumptoThePage}">
                     <input
                         className="form-control"
                         value={currentValue}
-                        placeholder="jump to the page: "
+                        placeholder="Jump to the page: "
                         onChange={(e) => setCurrentValue(e.target.value)}
                     />
                 </li>
-                <li>
+                <li key="{buttonForjumptoThePage}">
                     <button
                         className="page-item page-link"
                         onClick={() => paginate(currentValue)}
