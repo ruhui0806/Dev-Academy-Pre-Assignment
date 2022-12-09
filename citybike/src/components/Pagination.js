@@ -6,7 +6,7 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
     return (
         <nav aria-label="Page navigation">
             <ul className="pagination justify-content-center">
-                <li className="page-item">
+                {/* <li className="page-item">
                     <a
                         className="page-link active"
                         href="#"
@@ -19,15 +19,15 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
                     >
                         <span aria-hidden="true">&laquo;</span>
                     </a>
-                </li>
+                </li> */}
 
                 <li className="page-item" key={currentPage}>
                     <a
-                        className="page-link active"
+                        className="page-link"
                         href="#"
                         onClick={() => paginate(currentPage)}
                     >
-                        {currentPage}
+                        <span>Current page: </span> {currentPage} / {lastPage}
                     </a>
                 </li>
                 <li className="page-item" key="{jumptoThePage}">
@@ -41,14 +41,17 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
                 <li key="{buttonForjumptoThePage}">
                     <button
                         className="page-item page-link"
-                        onClick={() => paginate(currentValue)}
+                        onClick={() => {
+                            paginate(currentValue)
+                            setCurrentValue('')
+                        }}
                     >
                         {' '}
                         Go
                     </button>
                 </li>
 
-                <li className="page-item">
+                {/* <li className="page-item">
                     <a
                         className="page-link active"
                         href="#"
@@ -61,7 +64,7 @@ const Pagination = ({ lastPage, paginate, currentPage }) => {
                     >
                         <span aria-hidden="true">&raquo;</span>
                     </a>
-                </li>
+                </li> */}
             </ul>
         </nav>
     )

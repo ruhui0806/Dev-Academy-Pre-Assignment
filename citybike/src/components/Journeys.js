@@ -4,21 +4,21 @@ import Pagination from './Pagination'
 import ReactPaginate from 'react-paginate'
 import LoadingSpinner from './LoadingSpinner'
 import { GET_ALL_JOURNEYS, COUNT_JOURNEYS, GET_JOURNEYS } from '../queries'
-import { FaArrowsAltV } from 'react-icons/fa'
+import { FaSort } from 'react-icons/fa'
 
 const Journeys = () => {
-    const [journeysPerPage, setJourneysPerPage] = useState(20)
-    const [currentPage, setCurrentPage] = useState(1)
-    // const [indexOfFirstItem, setIndexOfFirstItem] = useState(0)
-    const [sortConfig, setSortConfig] = useState({
-        attr: 'Duration_sec',
-        direction: 'ascending',
-    })
-
     // const indexOfLastItem = indexOfFirstItem + journeysPerPage
     // const journeysResult = useQuery(GET_ALL_JOURNEYS, {
     //     fetchPolicy: 'cache-first',
     // })
+    // const [indexOfFirstItem, setIndexOfFirstItem] = useState(0)
+    const [journeysPerPage, setJourneysPerPage] = useState(20)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [sortConfig, setSortConfig] = useState({
+        attr: 'Duration_sec',
+        direction: 'ascending',
+    })
+    const [valueToSearch, setValueToSearch] = useState('')
 
     const journeysResult = useQuery(GET_JOURNEYS, {
         variables: {
@@ -43,9 +43,6 @@ const Journeys = () => {
     const handlePageClick = (event) => {
         console.log(event.selected)
         setCurrentPage(event.selected + 1)
-        var pageSelected = event.selected + 1
-        console.log('page selected: ', pageSelected + 1)
-        return pageSelected
     }
 
     const SortByColumn = (a, b) => {
@@ -65,9 +62,39 @@ const Journeys = () => {
         }
         setSortConfig({ attr, direction })
     }
+
     ////
     return (
         <div>
+            <form className="form-inline">
+                <h5 className="d-inline p-3">
+                    Search Journey by depature/return station
+                </h5>
+                <input
+                    type="text"
+                    id="nameToSearch"
+                    placeholder="Search for stations"
+                    onChange={(e) => setValueToSearch(e.target.value)}
+                />
+                <div className="d-inline p-3 form-group ml-auto">
+                    <label className=" p-3 form-label ml-auto">
+                        Journeys Per Page:
+                    </label>
+                    <select
+                        id="journeysPerPage"
+                        className="w-30 ml-auto"
+                        value={journeysPerPage}
+                        form-select-border-width="1"
+                        onChange={(e) =>
+                            setJourneysPerPage(parseInt(e.target.value))
+                        }
+                    >
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </form>
             <table className="table table-hover mt-3">
                 <thead>
                     <tr>
@@ -79,7 +106,7 @@ const Journeys = () => {
                                 }
                             >
                                 {' '}
-                                <FaArrowsAltV />
+                                <FaSort />
                             </span>
                         </th>
 
@@ -91,7 +118,7 @@ const Journeys = () => {
                                 }
                             >
                                 {' '}
-                                <FaArrowsAltV />
+                                <FaSort />
                             </span>
                         </th>
                         <th>
@@ -102,7 +129,7 @@ const Journeys = () => {
                                 }
                             >
                                 {' '}
-                                <FaArrowsAltV />
+                                <FaSort />
                             </span>
                         </th>
                         {/* <th>Duration (min)</th> */}
@@ -110,7 +137,7 @@ const Journeys = () => {
                             Duration (min)
                             <span onClick={() => requestSort('Duration_sec')}>
                                 {' '}
-                                <FaArrowsAltV />
+                                <FaSort />
                             </span>
                         </th>
                     </tr>
@@ -118,6 +145,15 @@ const Journeys = () => {
                 <tbody>
                     {journeysResult.data &&
                         [...journeysResult.data.journeys]
+                            .filter(
+                                (journey) =>
+                                    journey.Departure_station_name.includes(
+                                        valueToSearch
+                                    ) ||
+                                    journey.Return_station_name.includes(
+                                        valueToSearch
+                                    )
+                            )
                             .sort(SortByColumn)
                             .map((journey) => (
                                 <tr key={journey.id}>
@@ -143,7 +179,7 @@ const Journeys = () => {
                 onPageChange={handlePageClick}
                 forcePage={currentPage - 1}
                 onPageActive={() => paginate(currentPage - 1)}
-                pageRangeDisplayed={12}
+                pageRangeDisplayed={9}
                 marginPagesDisplayed={1}
                 pageCount={lastPage}
                 previousLabel="< previous"
