@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import ReactPaginate from 'react-paginate'
+// import ReactPaginate from 'react-paginate'
 import LoadingSpinner from './LoadingSpinner'
 import { Link } from 'react-router-dom'
 import { FaSort } from 'react-icons/fa'
@@ -163,9 +163,10 @@ const Stations = () => {
                 lastPage={lastPage}
                 currentPage={currentPage}
                 paginate={paginate}
+                handlePageClick={handlePageClick}
             />
 
-            <ReactPaginate
+            {/* <ReactPaginate
                 className="pagination justify-content-center"
                 nextLabel="next >"
                 onPageChange={handlePageClick}
@@ -186,7 +187,7 @@ const Stations = () => {
                 containerClassName="pagination"
                 activeClassName="active"
                 renderOnZeroPageCount={null}
-            />
+            /> */}
         </div>
     )
 }

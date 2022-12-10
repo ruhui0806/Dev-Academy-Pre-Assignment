@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
-import ReactPaginate from 'react-paginate'
+
 import LoadingSpinner from './LoadingSpinner'
 import { GET_ALL_JOURNEYS, COUNT_JOURNEYS, GET_JOURNEYS } from '../queries'
 import { FaSort } from 'react-icons/fa'
@@ -20,6 +20,7 @@ const Journeys = () => {
     })
     const [valueToSearch, setValueToSearch] = useState('')
 
+    const journeysCount = useQuery(COUNT_JOURNEYS)
     const journeysResult = useQuery(GET_JOURNEYS, {
         variables: {
             limit: journeysPerPage,
@@ -29,15 +30,20 @@ const Journeys = () => {
     })
 
     console.log(journeysResult.data)
+    console.log('count the total number of journeys: ', journeysCount.data)
 
-    const journeysCount = useQuery(COUNT_JOURNEYS)
     if (journeysResult.loading) return <LoadingSpinner />
     if (journeysResult.error) return <div>Error!</div>
+    if (journeysCount.loading) return <LoadingSpinner />
+    if (journeysCount.error) return <div>Error!</div>
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+    // const lastPage = Math.ceil(1747696 / journeysPerPage)
     const lastPage = Math.ceil(
-        journeysCount.data.countAlljourneys / journeysPerPage
+        parseInt(journeysCount.data.countAlljourneys) / journeysPerPage
     )
+
     console.log('last page in Journey list: ', lastPage)
 
     const handlePageClick = (event) => {
@@ -171,9 +177,10 @@ const Journeys = () => {
                 lastPage={lastPage}
                 currentPage={currentPage}
                 paginate={paginate}
+                handlePageClick={handlePageClick}
             />
 
-            <ReactPaginate
+            {/* <ReactPaginate
                 className="pagination justify-content-center"
                 nextLabel="next >"
                 onPageChange={handlePageClick}
@@ -196,7 +203,7 @@ const Journeys = () => {
                 activeClassName="active"
                 activeLinkClassName="page-link"
                 renderOnZeroPageCount={null}
-            />
+            /> */}
         </div>
     )
 }

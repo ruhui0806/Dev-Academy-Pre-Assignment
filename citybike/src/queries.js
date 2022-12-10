@@ -103,18 +103,6 @@ const COUNT_JOURNEYS = gql`
         countAlljourneys
     }
 `
-// const FIND_STATION_BY_NAME = gql`
-//     query findStationByName($nameToSearch: String!) {
-//         findStationByName(name: $nameToSearch) {
-//             Name
-//             ID
-//             Osoite
-//             x
-//             y
-//             Kapasiteet
-//         }
-//     }
-// `
 
 export {
     GET_STATION,
@@ -126,5 +114,4 @@ export {
     GET_JOURNEYS,
     GET_ALL_JOURNEYS,
     COUNT_JOURNEYS,
-    // FIND_STATION_BY_NAME,
 }
