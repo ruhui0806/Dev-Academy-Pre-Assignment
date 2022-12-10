@@ -7,6 +7,7 @@ const {
     GraphQLList,
     GraphQLInt,
     GraphQLNonNull,
+    GraphQLFloat,
 } = require('graphql')
 const Journey = require('./models/Journey')
 const Station = require('./models/Station')
@@ -39,8 +40,8 @@ const StationType = new GraphQLObjectType({
         Stad: { type: GraphQLString },
         Operaattor: { type: GraphQLString },
         Kapasiteet: { type: GraphQLInt },
-        x: { type: GraphQLString },
-        y: { type: GraphQLString },
+        x: { type: GraphQLFloat },
+        y: { type: GraphQLFloat },
         location: {
             type: GraphQLString,
             resolve(parent, args) {
@@ -245,8 +246,8 @@ const allMutations = new GraphQLObjectType({
                 Stad: { type: GraphQLNonNull(GraphQLString) },
                 Operaattor: { type: GraphQLNonNull(GraphQLString) },
                 Kapasiteet: { type: GraphQLInt },
-                x: { type: GraphQLString },
-                y: { type: GraphQLString },
+                x: { type: GraphQLFloat },
+                y: { type: GraphQLFloat },
             },
             resolve(parent, args) {
                 const station = new Station({

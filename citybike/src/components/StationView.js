@@ -58,6 +58,8 @@ const StationView = () => {
                             <th>Name</th>
                             <th>ID</th>
                             <th>Address</th>
+                            <th>x</th>
+                            <th>y</th>
                             <th>Journey start from this station</th>
                             <th>Journey end at this station</th>
                         </tr>
@@ -67,6 +69,8 @@ const StationView = () => {
                             <td>{station.Name}</td>
                             <td>{station.ID}</td>
                             <td>{station.Osoite}</td>
+                            <td>{station.x}</td>
+                            <td>{station.y}</td>
                             {journeyStartCount.data && (
                                 <td>
                                     {
