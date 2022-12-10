@@ -10,11 +10,17 @@ import {
 import Stations from './Stations'
 import Journeys from './Journeys'
 import StationView from './StationView'
+import AddStationModal from './AddStationModal'
+import AddJourneyModal from './AddJourneyModal'
 
 const Home = () => {
     return (
         <div>
             <h1>This is the home page</h1>
+            <div className="d-flex mb-3 gap-3">
+                <AddStationModal />
+                <AddJourneyModal />
+            </div>
         </div>
     )
 }

@@ -72,13 +72,19 @@ const RootQuery = new GraphQLObjectType({
         getAlljourneys: {
             type: new GraphQLList(JourneyType),
             resolve(parent, args) {
-                return Journey.find()
+                return Journey.find({
+                    Duration_sec: { $gte: 10 },
+                    Covered_distance_m: { $gte: 10 },
+                })
             },
         },
         countAlljourneys: {
             type: GraphQLInt,
             resolve(parent, args) {
-                return Journey.find().count()
+                return Journey.find({
+                    Duration_sec: { $gte: 10 },
+                    Covered_distance_m: { $gte: 10 },
+                }).count()
             },
         },
         countJourneysbyDepartureId: {
@@ -230,7 +236,7 @@ const allMutations = new GraphQLObjectType({
             type: StationType,
             args: {
                 Adress: { type: GraphQLNonNull(GraphQLString) },
-                ID: { type: GraphQLNonNull(GraphQLID) },
+                // ID: { type: GraphQLNonNull(GraphQLID) },
                 Name: { type: GraphQLNonNull(GraphQLString) },
                 Nimi: { type: GraphQLNonNull(GraphQLString) },
                 Namn: { type: GraphQLNonNull(GraphQLString) },
@@ -238,9 +244,9 @@ const allMutations = new GraphQLObjectType({
                 Kaupunki: { type: GraphQLNonNull(GraphQLString) },
                 Stad: { type: GraphQLNonNull(GraphQLString) },
                 Operaattor: { type: GraphQLNonNull(GraphQLString) },
-                Kapasiteet: { type: GraphQLNonNull(GraphQLInt) },
-                x: { type: GraphQLNonNull(GraphQLString) },
-                y: { type: GraphQLNonNull(GraphQLString) },
+                Kapasiteet: { type: GraphQLInt },
+                x: { type: GraphQLString },
+                y: { type: GraphQLString },
             },
             resolve(parent, args) {
                 const station = new Station({
