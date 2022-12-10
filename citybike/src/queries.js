@@ -8,6 +8,8 @@ const GET_STATION = gql`
             Kaupunki
             ID
             Operaattor
+            x
+            y
         }
     }
 `
