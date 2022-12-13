@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 import { FaBicycle } from 'react-icons/fa'
 const AddStationModal = () => {
+    const [Osoite, AddOsoite] = useState('')
+
     return (
         <div>
             <button
@@ -48,27 +51,24 @@ const AddStationModal = () => {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Name</label>
+                                    <label className="form-label">
+                                        Location
+                                    </label>
                                     <input
                                         className="form-control"
                                         type="text"
-                                        id="Name"
+                                        id="Osoite"
                                     />
                                 </div>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Submit
+                                </button>
                             </form>
                         </div>
-                        {/* <div className="modal-footer">
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                            >
-                                Close
-                            </button>
-                            <button type="button" className="btn btn-primary">
-                                Save changes
-                            </button>
-                        </div> */}
                     </div>
                 </div>
             </div>

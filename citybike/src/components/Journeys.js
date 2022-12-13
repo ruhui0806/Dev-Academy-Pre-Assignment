@@ -179,31 +179,6 @@ const Journeys = () => {
                 paginate={paginate}
                 handlePageClick={handlePageClick}
             />
-
-            {/* <ReactPaginate
-                className="pagination justify-content-center"
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                forcePage={currentPage - 1}
-                onPageActive={() => paginate(currentPage - 1)}
-                pageRangeDisplayed={9}
-                marginPagesDisplayed={1}
-                pageCount={lastPage}
-                previousLabel="< previous"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                activeLinkClassName="page-link"
-                renderOnZeroPageCount={null}
-            /> */}
         </div>
     )
 }

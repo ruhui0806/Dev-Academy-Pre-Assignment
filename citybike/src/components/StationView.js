@@ -10,21 +10,18 @@ import {
 
 const StationView = () => {
     const thisId = parseInt(useParams().id)
-    // console.log('ID', thisId)
 
     const journeyStartCount = useQuery(COUNT_JOURNEY_START_FROM_HERE, {
         variables: {
             idd: thisId,
         },
     })
-    // console.log('journey start from this station: ', journeyStartCount.data)
 
     const journeyEndCount = useQuery(COUNT_JOURNEY_END_AT_HERE, {
         variables: {
             idd: thisId,
         },
     })
-    // console.log('journey ends at this station: ', journeyEndCount.data)
 
     const singleStation = useQuery(GET_STATION, {
         variables: {
@@ -40,7 +37,6 @@ const StationView = () => {
     if (singleStation.error) return <div>Error!</div>
 
     const station = singleStation.data.findStationById
-    // console.log('query data: ', singleStation.data.findStationById)
 
     const countOfJourneyStart =
         journeyStartCount.data.countJourneysbyDepartureId
@@ -52,48 +48,59 @@ const StationView = () => {
     return (
         <div>
             {!singleStation.loading && !singleStation.error && (
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>ID</th>
-                            <th>Address</th>
-                            <th>x</th>
-                            <th>y</th>
-                            <th>Journey start from this station</th>
-                            <th>Journey end at this station</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{station.Name}</td>
-                            <td>{station.ID}</td>
-                            <td>{station.Osoite}</td>
-                            <td>{station.x}</td>
-                            <td>{station.y}</td>
-                            {journeyStartCount.data && (
-                                <td>
-                                    {
-                                        journeyStartCount.data
-                                            .countJourneysbyDepartureId
-                                    }
-                                </td>
-                            )}
-                            {journeyEndCount.data && (
-                                <td>
-                                    {
-                                        journeyEndCount.data
-                                            .countJourneysbyReturnId
-                                    }
-                                </td>
-                            )}
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Address</th>
+                                <th>Journeys start from here</th>
+                                <th>Journeys end at here</th>
+                                <th>Top 5 Return stations</th>
+                                <th>Top 5 Departure stations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{station.Name}</td>
+                                <td>{station.ID}</td>
+                                <td>{station.Osoite}</td>
+
+                                {journeyStartCount.data && (
+                                    <td>
+                                        {
+                                            journeyStartCount.data
+                                                .countJourneysbyDepartureId
+                                        }
+                                    </td>
+                                )}
+                                {journeyEndCount.data && (
+                                    <td>
+                                        {
+                                            journeyEndCount.data
+                                                .countJourneysbyReturnId
+                                        }
+                                    </td>
+                                )}
+                                <td>...</td>
+                                <td>...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             )}
-            <Link to="/stations" className="btn btn-primary">
-                Go Back
-            </Link>
+            <div className="ratio ratio-16x9 mb-3">
+                <iframe src="https://www.avoindata.fi/data/en_GB/dataset/hsl-n-kaupunkipyoraasemat/resource/eed64d92-c63a-412a-aab9-e006aea49732/view/a70b79fb-d393-466a-8f18-226c945ff477" />
+            </div>
+            <div className="d-flex mb-3 gap-3">
+                {/* <Link to="/stations/map" className="btn btn-primary">
+                    See it on the map
+                </Link> */}
+                <Link to="/stations" className="btn btn-primary mr-auto">
+                    Go Back
+                </Link>
+            </div>
         </div>
     )
 }

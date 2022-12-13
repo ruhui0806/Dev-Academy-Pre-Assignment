@@ -14,10 +14,16 @@ const GET_STATION = gql`
     }
 `
 const COUNT_JOURNEY_START_FROM_HERE = gql`
-    query countSjourneyByDepartureId($idd: Int!) {
+    query countJourneysbyDepartureId($idd: Int!) {
         countJourneysbyDepartureId(departureId: $idd)
     }
 `
+// const FIND_JOURNEYS_BY_DEPARTURE = gql`
+//     query findJourneysByDepatureId($idd: Int!) {
+//         findJourneysByDepatureId(departureId: $idd)
+//     }
+// `
+
 const COUNT_JOURNEY_END_AT_HERE = gql`
     query countJourneysbyReturnId($idd: Int!) {
         countJourneysbyReturnId(returnId: $idd)
@@ -107,6 +113,7 @@ const COUNT_JOURNEYS = gql`
 export {
     GET_STATION,
     COUNT_JOURNEY_START_FROM_HERE,
+    // FIND_JOURNEYS_BY_DEPARTURE,
     COUNT_JOURNEY_END_AT_HERE,
     GET_STATIONS,
     GET_ALL_STATIONS,

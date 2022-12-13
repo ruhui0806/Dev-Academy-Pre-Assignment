@@ -11,7 +11,7 @@ import Journeys from './components/Journeys'
 import StationView from './components/StationView'
 import NotFound from './components/NotFound'
 import Home from './components/Home'
-
+import StationMap from './components/StationMap'
 const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
@@ -43,6 +43,10 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/journeys" element={<Journeys />} />
                             <Route path="/stations" element={<Stations />} />
+                            <Route
+                                path="/stations/map"
+                                element={<StationMap />}
+                            />
                             <Route
                                 path="/stations/:id"
                                 element={<StationView />}
