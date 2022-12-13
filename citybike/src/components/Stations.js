@@ -144,7 +144,14 @@ const Stations = () => {
                             .slice(indexOfFirstStation, indexOfLastStation)
                             .map((station) => (
                                 <tr key={station.ID}>
-                                    <td>{station.ID}</td>
+                                    <td>
+                                        <Link
+                                            to={`/stations/${station.ID}`}
+                                            className="page-link "
+                                        >
+                                            {station.ID}
+                                        </Link>
+                                    </td>
                                     <td>
                                         <Link
                                             to={`/stations/${station.ID}`}
@@ -153,8 +160,22 @@ const Stations = () => {
                                             {station.Name}
                                         </Link>
                                     </td>
-                                    <td>{station.Osoite}</td>
-                                    <td>{station.Kapasiteet}</td>
+                                    <td>
+                                        <Link
+                                            to={`/stations/${station.ID}`}
+                                            className="page-link "
+                                        >
+                                            {station.Osoite}
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <Link
+                                            to={`/stations/${station.ID}`}
+                                            className="page-link "
+                                        >
+                                            {station.Kapasiteet}
+                                        </Link>
+                                    </td>
                                 </tr>
                             ))}
                 </tbody>
