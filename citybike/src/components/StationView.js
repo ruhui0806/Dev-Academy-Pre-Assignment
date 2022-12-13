@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client'
 import LoadingSpinner from './LoadingSpinner'
+import StationMap from './StationMap'
+import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
 import {
     GET_STATION,
     COUNT_JOURNEY_START_FROM_HERE,
@@ -29,14 +31,20 @@ const StationView = () => {
         },
     })
 
+    const { mapLoading } = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+    })
+    console.log('environment variables: ', process.env)
     if (journeyStartCount.loading) return <LoadingSpinner />
     if (journeyStartCount.error) return <div>Error!</div>
     if (journeyEndCount.loading) return <LoadingSpinner />
     if (journeyEndCount.error) return <div>Error!</div>
     if (singleStation.loading) return <LoadingSpinner />
     if (singleStation.error) return <div>Error!</div>
+    if (mapLoading) return <LoadingSpinner />
 
     const station = singleStation.data.findStationById
+    console.log(station)
 
     const countOfJourneyStart =
         journeyStartCount.data.countJourneysbyDepartureId
@@ -90,14 +98,14 @@ const StationView = () => {
                     </table>
                 </div>
             )}
-            <div className="ratio ratio-16x9 mb-3">
-                <iframe src="https://www.avoindata.fi/data/en_GB/dataset/hsl-n-kaupunkipyoraasemat/resource/eed64d92-c63a-412a-aab9-e006aea49732/view/a70b79fb-d393-466a-8f18-226c945ff477" />
-            </div>
+            {!singleStation.loading && !singleStation.error && !mapLoading && (
+                <div className="ratio ratio-16x9 mb-3">
+                    <StationMap x={station.x} y={station.y} />
+                </div>
+            )}
+
             <div className="d-flex mb-3 gap-3">
-                {/* <Link to="/stations/map" className="btn btn-primary">
-                    See it on the map
-                </Link> */}
-                <Link to="/stations" className="btn btn-primary mr-auto">
+                <Link to="/stations" className="btn btn-primary ms-auto ">
                     Go Back
                 </Link>
             </div>
