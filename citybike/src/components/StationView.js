@@ -34,6 +34,7 @@ const StationView = () => {
     const { mapLoading } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
     })
+
     console.log('environment variables: ', process.env)
     if (journeyStartCount.loading) return <LoadingSpinner />
     if (journeyStartCount.error) return <div>Error!</div>

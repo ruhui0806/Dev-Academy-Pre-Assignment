@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SearchLocation from './SearchLocation'
+
 import { FaBicycle } from 'react-icons/fa'
 const AddStationModal = () => {
     const [Osoite, AddOsoite] = useState('')
@@ -33,7 +33,6 @@ const AddStationModal = () => {
                             >
                                 Add New Bicycle Station
                             </h1>
-
                             <button
                                 type="button"
                                 className="btn-close"
@@ -61,7 +60,6 @@ const AddStationModal = () => {
                                         id="Osoite"
                                     />
                                 </div>
-                                {/* <SearchLocation className="mb-3" /> */}
                                 <button
                                     type="button"
                                     className="btn btn-primary"
