@@ -1,12 +1,17 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import AddStationModal from './AddStationModal'
 import AddJourneyModal from './AddJourneyModal'
 import Places from './Places'
-
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 
 const Home = () => {
+    const [selected, setSelected] = useState({
+        lat: 60.1718729,
+        lng: 24.9414217,
+        zipcode: '00100',
+        address: 'Helsingin päärautatieasema, Kaivokatu, Helsinki, Finland',
+    })
+
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
     })
@@ -19,7 +24,7 @@ const Home = () => {
                 <AddJourneyModal />
             </div>
             <div>
-                <Places />
+                <Places selected={selected} setSelected={setSelected} />
             </div>
         </div>
     )

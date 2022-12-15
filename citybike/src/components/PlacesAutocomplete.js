@@ -1,8 +1,7 @@
-import { useState, useMemo } from 'react'
-import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
+    getZipCode,
 } from 'use-places-autocomplete'
 import {
     Combobox,
@@ -25,23 +24,26 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
     const handleSelect = async (address) => {
         setValue(address, false)
+        console.log('address: ' + address)
         clearSuggestions()
 
         const results = await getGeocode({ address })
         const { lat, lng } = await getLatLng(results[0])
-        setSelected({ lat, lng })
+        const zipcode = await getZipCode(results[0])
+        setSelected({ address, lat, lng, zipcode })
+        console.log('ZIP Code: ', zipcode)
     }
 
     return (
-        <Combobox onSelect={handleSelect}>
+        <Combobox onSelect={handleSelect} className="">
             <ComboboxInput
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 disabled={!ready}
-                className="combobox-input"
+                className="pac-container combobox-input form-control"
                 placeholder="Search an address"
             />
-            <ComboboxPopover>
+            <ComboboxPopover portal={false}>
                 <ComboboxList>
                     {status === 'OK' &&
                         data.map(({ place_id, description }) => (

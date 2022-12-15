@@ -4,13 +4,16 @@ const ADD_STATION = gql`
     mutation addStation(
         $ID: Int!
         $Name: String!
-        $Namn: String!
+        $Nimi:String!
+        $Namn: String
         $Osoite: String!
         $Adress: String!
-        $Kaupunki: EnumKaupunki!
+        $Kaupunki: String!
+        $Stad:String!
         Kapasiteet: Int
-        $x: Float
-        $y: Float
+        Operaattor: String
+        $x: Float!
+        $y: Float!
     ) {
         addStation(
             ID: $ID
@@ -20,7 +23,9 @@ const ADD_STATION = gql`
             Osoite: $Osoite
             Adress: $Adress
             Kaupunki: $Kaupunki
+            Stad: $Stad
             Kapasiteet: $Kapasiteet
+            Operaattor: $Operaattor
             x: $x
             y: $y
         ) {
@@ -31,7 +36,9 @@ const ADD_STATION = gql`
             Osoite
             Adress
             Kaupunki
+            Stad
             Kapasiteet
+            Operaattor
             x
             y
         }
