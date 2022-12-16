@@ -13,7 +13,6 @@ function Map({ selected, setSelected }) {
     // })
 
     const center = useMemo(() => selected, [selected])
-    console.log('selected:', selected)
     return (
         <div className="mb-3">
             <div className="mb-3">

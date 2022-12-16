@@ -29,8 +29,8 @@ const Journeys = () => {
         fetchPolicy: 'cache-first',
     })
 
-    console.log(journeysResult.data)
-    console.log('count the total number of journeys: ', journeysCount.data)
+    // console.log(journeysResult.data)
+    // console.log('count the total number of journeys: ', journeysCount.data)
 
     if (journeysResult.loading) return <LoadingSpinner />
     if (journeysResult.error) return <div>Error!</div>
@@ -44,10 +44,10 @@ const Journeys = () => {
         parseInt(journeysCount.data.countAlljourneys) / journeysPerPage
     )
 
-    console.log('last page in Journey list: ', lastPage)
+    // console.log('last page in Journey list: ', lastPage)
 
     const handlePageClick = (event) => {
-        console.log(event.selected)
+        // console.log(event.selected)
         setCurrentPage(event.selected + 1)
     }
 

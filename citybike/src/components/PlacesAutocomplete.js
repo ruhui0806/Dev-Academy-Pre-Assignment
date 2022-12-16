@@ -24,14 +24,12 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
     const handleSelect = async (address) => {
         setValue(address, false)
-        console.log('address: ' + address)
         clearSuggestions()
 
         const results = await getGeocode({ address })
         const { lat, lng } = await getLatLng(results[0])
         const zipcode = await getZipCode(results[0])
         setSelected({ address, lat, lng, zipcode })
-        console.log('ZIP Code: ', zipcode)
     }
 
     return (

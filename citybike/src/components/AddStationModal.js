@@ -1,35 +1,100 @@
 import React, { useState } from 'react'
 import Places from './Places'
-
+import { ADD_STATION } from '../StationMutations'
+import { GET_ALL_STATIONS } from '../queries'
+import { useMutation } from '@apollo/client'
 const AddStationModal = () => {
-    const useField = (type) => {
-        const [value, setValue] = useState('')
-        const onChange = (event) => {
-            setValue(event.target.value)
-        }
-        return {
-            type,
-            value,
-            onChange,
-        }
-    }
-    const location = useField('text')
-
     const [selected, setSelected] = useState({
         lat: 60.1718729,
         lng: 24.9414217,
         zipcode: '00100',
         address: 'Helsingin päärautatieasema, Kaivokatu, Helsinki, Finland',
     })
-    const splitAddress = selected.address.split(',')
-    location.name = splitAddress[0]
-    location.kaupunki = splitAddress.slice(-2, -1)
-    location.latitude = selected.lat
-    location.longitude = selected.lng
+
+    const [name, setName] = useState(selected.address.split(',')[0])
+    const [namn, setNamn] = useState('')
+    const [osoite, setOsoite] = useState(selected.address.split(',')[1])
+    const [adress, setAdress] = useState('')
+    const [kaupunki, setKaupunki] = useState(
+        selected.address.split(',').slice(-2, -1)
+    )
+    const [stad, setStad] = useState('')
+    const [latitude, setLatitude] = useState(selected.lat)
+    const [longitude, setLongitude] = useState(selected.lng)
+    const [kapasiteet, setKapasiteet] = useState(0)
+    const [operaattor, setOperaattor] = useState('CityBike Finland')
+    // const [addStation] = useMutation(ADD_STATION, {
+    //     variables: {
+    //         Name: name,
+    //         Nimi: name,
+    //         Namn: namn,
+    //         Osoite: osoite,
+    //         Adress: adress,
+    //         Kaupunki: kaupunki,
+    //         Stad: stad,
+    //         y: latitude,
+    //         x: longitude,
+    //         Kapasiteet: kapasiteet,
+    //         Operaattor: operaattor,
+    //     },
+    //     update(cache, { data: { addStation } }) {
+    //         const { stations } = cache.readQuery({ query: GET_ALL_STATIONS })
+
+    //         cache.writeQuery({
+    //             query: GET_ALL_STATIONS,
+    //             data: { stations: [...stations, addStation] },
+    //         })
+    //     },
+    // })
+    const [addStation] = useMutation(ADD_STATION, {
+        variables: {
+            Name: name,
+            Nimi: name,
+            Namn: namn,
+            Osoite: osoite,
+            Adress: adress,
+            Kaupunki: kaupunki,
+            Stad: stad,
+            y: latitude,
+            x: longitude,
+            Kapasiteet: kapasiteet,
+            Operaattor: operaattor,
+        },
+        // refetchQueries: [{ query: GET_ALL_STATIONS }],
+        update(cache, { data: { addStation } }) {
+            const { stations } = cache.readQuery({ query: GET_ALL_STATIONS })
+
+            console.log('query: GET_ALL_STATIONS-1', cache)
+            cache.writeQuery({
+                query: GET_ALL_STATIONS,
+                data: { stations: [...stations, addStation] },
+            })
+            console.log('query: GET_ALL_STATIONS-2', cache)
+        },
+    })
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('this is handle submit function for adding new station')
+        if (
+            name === '' ||
+            kaupunki === '' ||
+            longitude === undefined ||
+            latitude === undefined
+        ) {
+            return alert('Please fill in all fields')
+        }
+        addStation(
+            name,
+            namn,
+            osoite,
+            adress,
+            kaupunki,
+            stad,
+            latitude,
+            longitude,
+            kapasiteet,
+            operaattor
+        )
     }
 
     return (
@@ -74,32 +139,76 @@ const AddStationModal = () => {
                                     <label className="form-label">Name</label>
                                     <input
                                         className="form-control"
-                                        type={location.type}
+                                        type="text"
                                         id="Name"
-                                        value={location.name}
-                                        onChange={location.onChange}
+                                        value={selected.address.split(',')[0]}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Namn</label>
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        id="Namn"
+                                        value={namn}
+                                        onChange={(e) =>
+                                            setNamn(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Osoite</label>
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        id="Osoite"
+                                        value={selected.address.split(',')[1]}
+                                        onChange={(e) =>
+                                            setOsoite(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Adress</label>
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        id="Adress"
+                                        value={adress}
+                                        onChange={(e) =>
+                                            setAdress(e.target.value)
+                                        }
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">
-                                        Address
+                                        Kaupunki
                                     </label>
                                     <input
                                         className="form-control"
-                                        type={location.type}
-                                        id="Osoite"
-                                        value={selected.address}
-                                        onChange={location.onChange}
+                                        type="text"
+                                        id="Kaupunki"
+                                        value={selected.address
+                                            .split(',')
+                                            .slice(-2, -1)}
+                                        onChange={(e) =>
+                                            setKaupunki(e.target.value)
+                                        }
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">City</label>
+                                    <label className="form-label">Stad</label>
                                     <input
                                         className="form-control"
-                                        type={location.type}
-                                        id="Kaupunki"
-                                        value={location.kaupunki}
-                                        onChange={location.onChange}
+                                        type="text"
+                                        id="Stad"
+                                        value={stad}
+                                        onChange={(e) =>
+                                            setStad(e.target.value)
+                                        }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -110,8 +219,10 @@ const AddStationModal = () => {
                                         className="form-control"
                                         type="number"
                                         id="x"
-                                        value={location.longitude}
-                                        onChange={location.onChange}
+                                        value={selected.lng}
+                                        onChange={(e) =>
+                                            setLongitude(e.target.value)
+                                        }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -122,12 +233,42 @@ const AddStationModal = () => {
                                         className="form-control"
                                         type="number"
                                         id="y"
-                                        value={location.latitude}
-                                        onChange={location.onChange}
+                                        value={selected.lat}
+                                        onChange={(e) =>
+                                            setLatitude(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Capacity
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        type="number"
+                                        id="Kapasiteet"
+                                        value={kapasiteet}
+                                        onChange={(e) =>
+                                            setKapasiteet(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Operator
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        id="Operaattor"
+                                        value={operaattor}
+                                        onChange={(e) =>
+                                            setOperaattor(e.target.value)
+                                        }
                                     />
                                 </div>
                                 <button
-                                    type="button"
+                                    type="submit"
                                     className="btn btn-primary mb-3"
                                     data-bs-dismiss="modal"
                                 >

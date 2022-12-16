@@ -1,24 +1,22 @@
-import gql from '@apollo/client'
+import { gql } from '@apollo/client'
 
 const ADD_STATION = gql`
     mutation addStation(
-        $ID: Int!
         $Name: String!
-        $Nimi:String!
+        $Nimi: String!
         $Namn: String
         $Osoite: String!
-        $Adress: String!
+        $Adress: String
         $Kaupunki: String!
-        $Stad:String!
-        Kapasiteet: Int
-        Operaattor: String
+        $Stad: String
+        $Operaattor: String
+        $Kapasiteet: Int
         $x: Float!
         $y: Float!
     ) {
         addStation(
-            ID: $ID
             Name: $Name
-            Nimi: $Name
+            Nimi: $Nimi
             Namn: $Namn
             Osoite: $Osoite
             Adress: $Adress
@@ -44,4 +42,12 @@ const ADD_STATION = gql`
         }
     }
 `
-export { ADD_STATION }
+const DELETE_STATION = gql`
+    mutation deleteStation($idd: Int!) {
+        deleteStation(ID: $idd) {
+            ID
+            Name
+        }
+    }
+`
+export { ADD_STATION, DELETE_STATION }

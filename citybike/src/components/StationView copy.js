@@ -44,10 +44,10 @@ const StationView = () => {
 
     const countOfJourneyStart =
         journeyStartCount.data.countJourneysbyDepartureId
-    console.log('Journey start from here', countOfJourneyStart)
+    // console.log('Journey start from here', countOfJourneyStart)
 
     const countOfJourneyEnd = journeyEndCount.data.countJourneysbyReturnId
-    console.log('Journey end at here:', countOfJourneyEnd)
+    // console.log('Journey end at here:', countOfJourneyEnd)
 
     return (
         <div>

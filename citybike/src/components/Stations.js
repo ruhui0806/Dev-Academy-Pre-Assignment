@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { gql, useQuery } from '@apollo/client'
-// import ReactPaginate from 'react-paginate'
+import { gql, useQuery, useMutation } from '@apollo/client'
 import LoadingSpinner from './LoadingSpinner'
-import { Link } from 'react-router-dom'
 import { FaSort } from 'react-icons/fa'
 import Pagination from './Pagination'
 import { GET_ALL_STATIONS, COUNT_STATIONS } from '../queries'
 
+import StationRow from './StationRow'
 const Stations = () => {
     // const indexOfLastStation = currentPage * stationsPerPage
     // const indexOfFirstStation = indexOfLastStation - stationsPerPage
@@ -22,6 +21,7 @@ const Stations = () => {
     const indexOfLastStation = indexOfFirstStation + stationsPerPage
 
     const [valueToSearch, setValueToSearch] = useState('')
+
     const stationsResult = useQuery(GET_ALL_STATIONS, {
         fetchPolicy: 'cache-first',
     })
@@ -143,40 +143,10 @@ const Stations = () => {
                             .sort(SortByColumn)
                             .slice(indexOfFirstStation, indexOfLastStation)
                             .map((station) => (
-                                <tr key={station.ID}>
-                                    <td>
-                                        <Link
-                                            to={`/stations/${station.ID}`}
-                                            className="page-link "
-                                        >
-                                            {station.ID}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link
-                                            to={`/stations/${station.ID}`}
-                                            className="page-link "
-                                        >
-                                            {station.Name}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link
-                                            to={`/stations/${station.ID}`}
-                                            className="page-link "
-                                        >
-                                            {station.Osoite}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link
-                                            to={`/stations/${station.ID}`}
-                                            className="page-link "
-                                        >
-                                            {station.Kapasiteet}
-                                        </Link>
-                                    </td>
-                                </tr>
+                                <StationRow
+                                    station={station}
+                                    key={station.ID}
+                                />
                             ))}
                 </tbody>
             </table>

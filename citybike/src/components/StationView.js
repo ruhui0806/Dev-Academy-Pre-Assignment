@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import LoadingSpinner from './LoadingSpinner'
 import StationMap from './StationMap'
-import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
+import { useLoadScript } from '@react-google-maps/api'
 import {
     GET_STATION,
     COUNT_JOURNEY_START_FROM_HERE,
@@ -35,7 +35,7 @@ const StationView = () => {
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
     })
 
-    console.log('environment variables: ', process.env)
+    // console.log('environment variables: ', process.env)
     if (journeyStartCount.loading) return <LoadingSpinner />
     if (journeyStartCount.error) return <div>Error!</div>
     if (journeyEndCount.loading) return <LoadingSpinner />
@@ -45,14 +45,14 @@ const StationView = () => {
     if (mapLoading) return <LoadingSpinner />
 
     const station = singleStation.data.findStationById
-    console.log(station)
+    // console.log(station)
 
-    const countOfJourneyStart =
-        journeyStartCount.data.countJourneysbyDepartureId
-    console.log('Journey start from here', countOfJourneyStart)
+    // const countOfJourneyStart =
+    //     journeyStartCount.data.countJourneysbyDepartureId
+    // // console.log('Journey start from here', countOfJourneyStart)
 
-    const countOfJourneyEnd = journeyEndCount.data.countJourneysbyReturnId
-    console.log('Journey end at here:', countOfJourneyEnd)
+    // const countOfJourneyEnd = journeyEndCount.data.countJourneysbyReturnId
+    // // console.log('Journey end at here:', countOfJourneyEnd)
 
     return (
         <div>

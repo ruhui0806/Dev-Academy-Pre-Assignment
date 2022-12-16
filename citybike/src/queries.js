@@ -45,7 +45,6 @@ const GET_STATIONS = gql`
             Kapasiteet
             x
             y
-            location
         }
     }
 `
@@ -64,7 +63,6 @@ const GET_ALL_STATIONS = gql`
             Kapasiteet
             x
             y
-            location
         }
     }
 `
