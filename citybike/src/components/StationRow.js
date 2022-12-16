@@ -6,7 +6,7 @@ import { GET_ALL_STATIONS } from '../queries'
 import { DELETE_STATION } from '../StationMutations'
 const StationRow = ({ station }) => {
     const [deleteStation] = useMutation(DELETE_STATION, {
-        variables: { idd: station.ID },
+        variables: { idd: station.id },
         refetchQueries: [{ query: GET_ALL_STATIONS }],
     })
     return (
@@ -29,6 +29,11 @@ const StationRow = ({ station }) => {
             <td>
                 <Link to={`/stations/${station.ID}`} className="page-link ">
                     {station.Kapasiteet}
+                </Link>
+            </td>
+            <td>
+                <Link to={`/stations/${station.ID}`} className="page-link ">
+                    {station.id}
                 </Link>
             </td>
             <td>

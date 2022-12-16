@@ -43,8 +43,8 @@ const ADD_STATION = gql`
     }
 `
 const DELETE_STATION = gql`
-    mutation deleteStation($idd: Int!) {
-        deleteStation(ID: $idd) {
+    mutation deleteStationByGraphQLId($idd: ID!) {
+        deleteStationByGraphQLId(id: $idd) {
             ID
             Name
         }

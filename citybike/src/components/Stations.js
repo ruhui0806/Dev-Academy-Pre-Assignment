@@ -130,6 +130,13 @@ const Stations = () => {
                                 <FaSort />
                             </span>
                         </th>
+                        <th>
+                            id
+                            <span onClick={() => requestSort('id')}>
+                                {' '}
+                                <FaSort />
+                            </span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

@@ -8,7 +8,6 @@ const {
     GraphQLInt,
     GraphQLNonNull,
     GraphQLFloat,
-    GraphQLEnumType,
 } = require('graphql')
 const Journey = require('./models/Journey')
 const Station = require('./models/Station')
@@ -31,6 +30,7 @@ const JourneyType = new GraphQLObjectType({
 const StationType = new GraphQLObjectType({
     name: 'Station',
     fields: () => ({
+        id: { type: GraphQLID },
         ID: { type: GraphQLInt },
         Nimi: { type: GraphQLString },
         Namn: { type: GraphQLString },
@@ -43,38 +43,12 @@ const StationType = new GraphQLObjectType({
         Kapasiteet: { type: GraphQLInt },
         x: { type: GraphQLFloat },
         y: { type: GraphQLFloat },
-        location: {
-            type: GraphQLString,
-            resolve(parent, args) {
-                return 'x: ' + parent.x + '; y: ' + parent.y
-            },
-        },
     }),
 })
 
-const AggregationType = new GraphQLObjectType({
-    name: 'aggregation',
-    fields: () => ({
-        station_name: { type: GraphQLString },
-        journeysCount: { type: GraphQLInt },
-    }),
-})
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        aggrJourneysByReturnId: {
-            type: new GraphQLList(AggregationType),
-            args: {
-                departureId: { type: GraphQLInt },
-                station_name: { type: GraphQLString },
-            },
-            resolve(parent, args) {
-                return Journey.find({
-                    Departure_station_id: args.departureId,
-                }).sort({ Return_station_name: 1 }).aggregate
-            },
-        },
-
         journeys: {
             type: new GraphQLList(JourneyType),
             args: {
@@ -199,6 +173,14 @@ const RootQuery = new GraphQLObjectType({
                 return Station.findOne({ ID: args.id })
             },
         },
+        findStationByGraphQLId: {
+            type: StationType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                // return stations.find((station) => station.ID === args.id)
+                return Station.findById(args.id)
+            },
+        },
         findStationByName: {
             type: StationType,
             args: { name: { type: GraphQLString } },
@@ -237,7 +219,7 @@ const allMutations = new GraphQLObjectType({
                     Covered_distance_m: args.Covered_distance_m,
                     Duration_sec: args.Duration_sec,
                 })
-                return Journey.save()
+                return journey.save()
                 // Client.create()
             },
         },
@@ -251,49 +233,37 @@ const allMutations = new GraphQLObjectType({
                 return Journey.findOneAndRemove({ ID: args.ID })
             },
         },
-
         //add a station:
         addStation: {
             type: StationType,
             args: {
-                ID: { type: GraphQLNonNull(GraphQLInt) },
                 Name: { type: GraphQLNonNull(GraphQLString) },
                 Nimi: { type: GraphQLNonNull(GraphQLString) }, //Name === Nimi
-                Namn: { type: GraphQLNonNull(GraphQLString) },
+                Namn: { type: GraphQLString },
                 Osoite: { type: GraphQLNonNull(GraphQLString) },
-                Adress: { type: GraphQLNonNull(GraphQLString) },
-                Kaupunki: {
-                    type: new GraphQLEnumType({
-                        name: 'EnumKaupunki',
-                        values: {
-                            Espoo: { value: 'Espoo' },
-                            Helsinki: { value: 'Helsinki' },
-                            Vantaa: { value: 'Vantaa' },
-                        },
-                    }),
-                },
+                Adress: { type: GraphQLString },
+                Kaupunki: { type: GraphQLNonNull(GraphQLString) },
                 Stad: { type: GraphQLString },
                 Operaattor: { type: GraphQLString },
                 Kapasiteet: { type: GraphQLInt },
-                x: { type: GraphQLFloat },
-                y: { type: GraphQLFloat },
+                x: { type: GraphQLNonNull(GraphQLFloat) },
+                y: { type: GraphQLNonNull(GraphQLFloat) },
             },
             resolve(parent, args) {
                 const station = new Station({
-                    Adress,
-                    ID,
-                    Name,
-                    Nimi,
-                    Namn,
-                    Osoite,
-                    Kaupunki,
-                    Stad,
-                    Operaattor,
-                    Kapasiteet,
-                    x,
-                    y,
+                    Name: args.Name,
+                    Nimi: args.Nimi,
+                    Namn: args.Namn,
+                    Osoite: args.Osoite,
+                    Adress: args.Adress,
+                    Kaupunki: args.Kaupunki,
+                    Stad: args.Stad,
+                    Operaattor: args.Operaattor,
+                    Kapasiteet: args.Kapasiteet,
+                    x: args.x,
+                    y: args.y,
                 })
-                return Station.save()
+                return station.save()
             },
         },
 
@@ -301,10 +271,19 @@ const allMutations = new GraphQLObjectType({
         deleteStation: {
             type: StationType,
             args: {
-                ID: { type: GraphQLNonNull(GraphQLID) },
+                ID: { type: GraphQLNonNull(GraphQLInt) },
             },
             resolve(parent, args) {
-                return Project.findOneAndRemove({ ID: args.ID })
+                return Station.findOneAndRemove({ ID: args.ID })
+            },
+        },
+        deleteStationByGraphQLId: {
+            type: StationType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args) {
+                return Station.findByIdAndRemove(args.id)
             },
         },
     },

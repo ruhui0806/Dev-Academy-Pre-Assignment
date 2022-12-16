@@ -10,6 +10,7 @@ const GET_STATION = gql`
             Operaattor
             x
             y
+            id
         }
     }
 `
@@ -45,6 +46,7 @@ const GET_STATIONS = gql`
             Kapasiteet
             x
             y
+            id
         }
     }
 `
@@ -63,6 +65,7 @@ const GET_ALL_STATIONS = gql`
             Kapasiteet
             x
             y
+            id
         }
     }
 `
