@@ -2,32 +2,31 @@ import { gql } from '@apollo/client'
 
 const ADD_STATION = gql`
     mutation addStation(
-        $Name: String!
-        $Nimi: String!
-        $Namn: String
-        $Osoite: String!
-        $Adress: String
-        $Kaupunki: String!
-        $Stad: String
-        $Operaattor: String
-        $Kapasiteet: Int
-        $x: Float!
-        $y: Float!
+        $name: String!
+        $nimi: String!
+        $namn: String!
+        $osoite: String!
+        $adress: String!
+        $kaupunki: String!
+        $stad: String!
+        $operaattor: String!
+        $kapasiteet: Int!
+        $longitude: String!
+        $latitude: String!
     ) {
         addStation(
-            Name: $Name
-            Nimi: $Nimi
-            Namn: $Namn
-            Osoite: $Osoite
-            Adress: $Adress
-            Kaupunki: $Kaupunki
-            Stad: $Stad
-            Kapasiteet: $Kapasiteet
-            Operaattor: $Operaattor
-            x: $x
-            y: $y
+            Name: $name
+            Nimi: $nimi
+            Namn: $namn
+            Osoite: $osoite
+            Adress: $adress
+            Kaupunki: $kaupunki
+            Stad: $stad
+            Operaattor: $operaattor
+            Kapasiteet: $kapasiteet
+            x: $longitude
+            y: $latitude
         ) {
-            ID
             Name
             Nimi
             Namn
@@ -35,10 +34,12 @@ const ADD_STATION = gql`
             Adress
             Kaupunki
             Stad
-            Kapasiteet
             Operaattor
+            Kapasiteet
             x
             y
+            ID
+            id
         }
     }
 `

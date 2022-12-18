@@ -101,7 +101,7 @@ const StationView = () => {
             )}
             {!singleStation.loading && !singleStation.error && !mapLoading && (
                 <div className="ratio ratio-16x9 mb-3">
-                    <StationMap x={station.x} y={station.y} />
+                    <StationMap x={Number(station.x)} y={Number(station.y)} />
                 </div>
             )}
 

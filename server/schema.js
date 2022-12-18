@@ -41,8 +41,8 @@ const StationType = new GraphQLObjectType({
         Stad: { type: GraphQLString },
         Operaattor: { type: GraphQLString },
         Kapasiteet: { type: GraphQLInt },
-        x: { type: GraphQLFloat },
-        y: { type: GraphQLFloat },
+        x: { type: GraphQLString },
+        y: { type: GraphQLString },
     }),
 })
 
@@ -245,9 +245,9 @@ const allMutations = new GraphQLObjectType({
                 Kaupunki: { type: GraphQLNonNull(GraphQLString) },
                 Stad: { type: GraphQLString },
                 Operaattor: { type: GraphQLString },
-                Kapasiteet: { type: GraphQLInt },
-                x: { type: GraphQLNonNull(GraphQLFloat) },
-                y: { type: GraphQLNonNull(GraphQLFloat) },
+                Kapasiteet: { type: GraphQLNonNull(GraphQLInt) },
+                x: { type: GraphQLNonNull(GraphQLString) },
+                y: { type: GraphQLNonNull(GraphQLString) },
             },
             resolve(parent, args) {
                 const station = new Station({

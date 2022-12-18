@@ -12,8 +12,27 @@ import StationView from './components/StationView'
 import NotFound from './components/NotFound'
 import Home from './components/Home'
 import StationMap from './components/StationMap'
+const cache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                clients: {
+                    merge(existing, incoming) {
+                        return incoming
+                    },
+                },
+                projects: {
+                    merge(existing, incoming) {
+                        return incoming
+                    },
+                },
+            },
+        },
+    },
+})
+
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: cache,
     link: new HttpLink({
         uri: 'http://localhost:9000/graphql',
     }),

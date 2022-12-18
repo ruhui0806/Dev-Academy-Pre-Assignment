@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const StationSchema = new mongoose.Schema({
-    ID: { type: Number },
-    Name: { type: String },
+    Name: { type: String, unique: true },
     Nimi: { type: String },
     Namn: { type: String },
     Osoite: { type: String },
@@ -11,15 +10,16 @@ const StationSchema = new mongoose.Schema({
     Stad: { type: String },
     Operaattor: { type: String },
     Kapasiteet: { type: Number },
-    x: { type: Number },
-    y: { type: Number },
-})
-StationSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.ID = parseInt(
-            returnedObject._id.slice(1, 5).valueOf(),
-            12
-        )
+    x: { type: String, unique: true },
+    y: { type: String, unique: true },
+    ID: {
+        type: Number,
+        unique: true,
+        // default: () => ((id = 1000), () => id++)(),
+        default: function () {
+            return Math.floor(Math.random() * 10000 + 999)
+        },
     },
 })
+
 module.exports = mongoose.model('Station', StationSchema)
