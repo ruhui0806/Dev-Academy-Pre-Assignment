@@ -90,21 +90,21 @@ const GET_JOURNEYS = gql`
         }
     }
 `
-const GET_ALL_JOURNEYS = gql`
-    query getAlljourneys {
-        journeys {
-            Departure
-            Return
-            Departure_station_id
-            Departure_station_name
-            Return_station_id
-            Return_station_name
-            Covered_distance_m
-            Duration_sec
-            id
-        }
-    }
-`
+// const GET_ALL_JOURNEYS = gql`
+//     query getAlljourneys {
+//         journeys {
+//             Departure
+//             Return
+//             Departure_station_id
+//             Departure_station_name
+//             Return_station_id
+//             Return_station_name
+//             Covered_distance_m
+//             Duration_sec
+//             id
+//         }
+//     }
+// `
 const COUNT_JOURNEYS = gql`
     query countAlljourneys {
         countAlljourneys
@@ -120,6 +120,6 @@ export {
     GET_ALL_STATIONS,
     COUNT_STATIONS,
     GET_JOURNEYS,
-    GET_ALL_JOURNEYS,
+    // GET_ALL_JOURNEYS,
     COUNT_JOURNEYS,
 }

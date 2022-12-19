@@ -20,6 +20,7 @@ const AddStationModal = () => {
     const [stad, setStad] = useState('undefined')
     const [kapasiteet, setKapasiteet] = useState(10)
     const [operaattor, setOperaattor] = useState('CityBike Finland')
+    const [error, setError] = useState('')
     // const [latitude, setLatitude] = useState(selected.lat.toString())
     // const [longitude, setLongitude] = useState(selected.lng.toString())
 
@@ -31,6 +32,9 @@ const AddStationModal = () => {
                 query: GET_ALL_STATIONS,
                 data: { stations: [...stations, addStation] },
             })
+        },
+        onError: (error) => {
+            setError(error.graphQLErrors[0].message)
         },
         // refetchQueries: [{ query: GET_ALL_STATIONS }],
     })

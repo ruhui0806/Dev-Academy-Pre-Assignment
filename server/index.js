@@ -3,18 +3,9 @@ const cors = require('cors')
 require('dotenv').config()
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./schema')
+const dbConnection = require('./config/MongoDBconnect')
 
-const mongoose = require('mongoose')
-
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log('Connect to Mongo DB successfully '))
-    .catch((error) => {
-        console.log(
-            'error occurred when connecting to Mongo DB:',
-            error.message
-        )
-    })
+dbConnection()
 
 const port = process.env.PORT || 9000
 

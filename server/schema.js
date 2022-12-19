@@ -62,7 +62,12 @@ const RootQuery = new GraphQLObjectType({
                 },
             },
             resolve(parent, args) {
-                return Journey.find().limit(args.limit).skip(args.offset)
+                return Journey.find({
+                    Duration_sec: { $gte: 10 },
+                    Covered_distance_m: { $gte: 10 },
+                })
+                    .limit(args.limit)
+                    .skip(args.offset)
             },
         },
         getAlljourneys: {
@@ -74,6 +79,7 @@ const RootQuery = new GraphQLObjectType({
                 })
             },
         },
+
         countAlljourneys: {
             type: GraphQLInt,
             resolve(parent, args) {

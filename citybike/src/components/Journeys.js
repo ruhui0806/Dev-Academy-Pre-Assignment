@@ -3,7 +3,7 @@ import { gql, useQuery } from '@apollo/client'
 import Pagination from './Pagination'
 
 import LoadingSpinner from './LoadingSpinner'
-import { GET_ALL_JOURNEYS, COUNT_JOURNEYS, GET_JOURNEYS } from '../queries'
+import { COUNT_JOURNEYS, GET_JOURNEYS } from '../queries'
 import { FaSort } from 'react-icons/fa'
 
 const Journeys = () => {
@@ -39,15 +39,11 @@ const Journeys = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
-    // const lastPage = Math.ceil(1747696 / journeysPerPage)
     const lastPage = Math.ceil(
         parseInt(journeysCount.data.countAlljourneys) / journeysPerPage
     )
 
-    // console.log('last page in Journey list: ', lastPage)
-
     const handlePageClick = (event) => {
-        // console.log(event.selected)
         setCurrentPage(event.selected + 1)
     }
 
