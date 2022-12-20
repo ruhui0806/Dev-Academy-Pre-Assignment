@@ -6,12 +6,3 @@ const dbConnection = async () => {
     console.log(`MongoDB Connected to: ${connection.connection.host}`)
 }
 module.exports = dbConnection
-// mongoose
-//     .connect(process.env.MONGO_URI)
-//     .then(() => console.log('Connect to Mongo DB successfully '))
-//     .catch((error) => {
-//         console.log(
-//             'error occurred when connecting to Mongo DB:',
-//             error.message
-//         )
-//     })

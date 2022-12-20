@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import Pagination from './Pagination'
+import Pagination from '../Pagination'
 
-import LoadingSpinner from './LoadingSpinner'
-import { COUNT_JOURNEYS, GET_JOURNEYS } from '../queries'
+import LoadingSpinner from '../LoadingSpinner'
+import { COUNT_JOURNEYS, GET_JOURNEYS } from '../../queries/queries'
 import { FaSort } from 'react-icons/fa'
 
 const Journeys = () => {

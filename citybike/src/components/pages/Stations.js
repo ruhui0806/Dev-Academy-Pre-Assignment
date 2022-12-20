@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { gql, useQuery, useMutation } from '@apollo/client'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import { FaSort } from 'react-icons/fa'
-import Pagination from './Pagination'
-import { GET_ALL_STATIONS, COUNT_STATIONS } from '../queries'
+import Pagination from '../Pagination'
+import { GET_ALL_STATIONS, COUNT_STATIONS } from '../../queries/queries'
 
-import StationRow from './StationRow'
+import StationRow from '../StationRow'
 const Stations = () => {
-    // const indexOfLastStation = currentPage * stationsPerPage
-    // const indexOfFirstStation = indexOfLastStation - stationsPerPage
-
     const [stationsPerPage, setStationsPerPage] = useState(10)
     const [currentPage, setCurrentPage] = useState(1)
     const [indexOfFirstStation, setIndexOfFirstStation] = useState(0)
@@ -25,7 +22,6 @@ const Stations = () => {
     const stationsResult = useQuery(GET_ALL_STATIONS, {
         fetchPolicy: 'cache-first',
     })
-    // console.log('stationsResult.data: ', stationsResult.data) //{stations: Array(457)}
 
     const stationsCount = useQuery(COUNT_STATIONS)
     if (stationsResult.loading) return <LoadingSpinner />
@@ -68,7 +64,6 @@ const Stations = () => {
 
     return (
         <div>
-            {/* <div className="d-flex align-items-center d-inline"> */}
             <form className="form-inline">
                 <h5 className="d-inline p-3">
                     Search Station by Name/Address:
@@ -98,7 +93,6 @@ const Stations = () => {
                     </select>
                 </div>
             </form>
-            {/* </div> */}
             <table className="table table-hover mt-3">
                 <thead>
                     <tr>

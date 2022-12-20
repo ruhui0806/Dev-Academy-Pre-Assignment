@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Places from './Places'
-import { GET_ALL_STATIONS } from '../queries'
-import { ADD_STATION } from '../StationMutations'
+import { GET_ALL_STATIONS } from '../queries/queries'
+import { ADD_STATION } from '../queries/StationMutations'
 import { useMutation } from '@apollo/client'
 const AddStationModal = () => {
     const [selected, setSelected] = useState({
@@ -11,18 +11,14 @@ const AddStationModal = () => {
         address: 'Helsingin päärautatieasema, Kaivokatu, Helsinki, Finland',
     })
 
-    // const [name, setName] = useState(selected.address.split(',')[0])
-    // const [nimi, setNimi] = useState(selected.address.split(',')[0])
-    const [namn, setNamn] = useState('undefined')
-    // const [osoite, setOsoite] = useState(selected.address.split(',')[1])
-    const [adress, setAdress] = useState('undefined')
-    // const [kaupunki, setKaupunki] = useState(selected.address.split(',')[2])
-    const [stad, setStad] = useState('undefined')
+    const [namn, setNamn] = useState('')
+
+    const [adress, setAdress] = useState('')
+
+    const [stad, setStad] = useState('')
     const [kapasiteet, setKapasiteet] = useState(10)
     const [operaattor, setOperaattor] = useState('CityBike Finland')
     const [error, setError] = useState('')
-    // const [latitude, setLatitude] = useState(selected.lat.toString())
-    // const [longitude, setLongitude] = useState(selected.lng.toString())
 
     const [addStation] = useMutation(ADD_STATION, {
         update(cache, { data: { addStation } }) {
@@ -36,15 +32,11 @@ const AddStationModal = () => {
         onError: (error) => {
             setError(error.graphQLErrors[0].message)
         },
-        // refetchQueries: [{ query: GET_ALL_STATIONS }],
     })
 
     const onSubmit = (e) => {
         e.preventDefault()
 
-        // if (!name || !latitude || !longitude || !osoite || !kaupunki) {
-        //     return alert('Please fill out all fields')
-        // }
         addStation({
             variables: {
                 name: selected.address.split(',')[0],

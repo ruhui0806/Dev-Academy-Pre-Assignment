@@ -2,8 +2,8 @@ import React from 'react'
 import { useMutation } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import { FaTrashAlt } from 'react-icons/fa'
-import { GET_ALL_STATIONS } from '../queries'
-import { DELETE_STATION } from '../StationMutations'
+import { GET_ALL_STATIONS } from '../queries/queries'
+import { DELETE_STATION } from '../queries/StationMutations'
 const StationRow = ({ station }) => {
     const [deleteStation] = useMutation(DELETE_STATION, {
         variables: { idd: station.id },

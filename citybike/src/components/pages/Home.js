@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import AddStationModal from './AddStationModal'
-import AddJourneyModal from './AddJourneyModal'
-import Places from './Places'
+import AddStationModal from '../AddStationModal'
+import Places from '../Places'
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 
 const Home = () => {
@@ -21,7 +20,6 @@ const Home = () => {
             <h1>This is the home page</h1>
             <div className="d-flex mb-3 gap-3">
                 <AddStationModal />
-                <AddJourneyModal />
             </div>
             <div>
                 <Places selected={selected} setSelected={setSelected} />

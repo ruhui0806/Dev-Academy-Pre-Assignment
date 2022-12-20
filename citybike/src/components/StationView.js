@@ -8,7 +8,7 @@ import {
     GET_STATION,
     COUNT_JOURNEY_START_FROM_HERE,
     COUNT_JOURNEY_END_AT_HERE,
-} from '../queries'
+} from '../queries/queries'
 
 const StationView = () => {
     const thisId = parseInt(useParams().id)
@@ -66,8 +66,8 @@ const StationView = () => {
                                 <th>Address</th>
                                 <th>Journeys start from here</th>
                                 <th>Journeys end at here</th>
-                                <th>Top 5 Return stations</th>
-                                <th>Top 5 Departure stations</th>
+                                {/* <th>Top 5 Return stations</th>
+                                <th>Top 5 Departure stations</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -92,8 +92,8 @@ const StationView = () => {
                                         }
                                     </td>
                                 )}
-                                <td>...</td>
-                                <td>...</td>
+                                {/* <td>...</td>
+                                <td>...</td> */}
                             </tr>
                         </tbody>
                     </table>
