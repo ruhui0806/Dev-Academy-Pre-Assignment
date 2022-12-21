@@ -32,7 +32,7 @@ function Map({ selected, setSelected }) {
 }
 //define final functional component combining map and autocomplete components:
 export default function Places({ selected, setSelected }) {
-    const libraries = ['places']
+    const [libraries] = useState(['places'])
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
         libraries,

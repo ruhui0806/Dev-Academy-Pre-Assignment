@@ -103,6 +103,7 @@ const AddStationModal = () => {
                                         type="text"
                                         id="name"
                                         value={selected.address.split(',')[0]}
+                                        readOnly
                                         // onChange={(e) =>
                                         //     setName(
                                         //         selected.address.split(',')[0]
@@ -117,6 +118,7 @@ const AddStationModal = () => {
                                         type="text"
                                         id="nimi"
                                         value={selected.address.split(',')[0]}
+                                        readOnly
                                         // onChange={(e) =>
                                         //     setNimi(
                                         //         selected.address.split(',')[0]
@@ -143,6 +145,7 @@ const AddStationModal = () => {
                                         type="text"
                                         id="osoite"
                                         value={selected.address.split(',')[1]}
+                                        readOnly
                                         // onChange={(e) =>
                                         //     setOsoite(
                                         //         selected.address.split(',')[1]
@@ -171,6 +174,7 @@ const AddStationModal = () => {
                                         type="text"
                                         id="kaupunki"
                                         value={selected.address.split(',')[2]}
+                                        readOnly
                                         // onChange={(e) =>
                                         //     setKaupunki(
                                         //         selected.address.split(',')[2]
@@ -199,6 +203,7 @@ const AddStationModal = () => {
                                         type="text"
                                         id="longitude"
                                         value={selected.lng}
+                                        readOnly
                                         // onChange={(e) =>
                                         //     setLongitude(e.target.value)
                                         // }
@@ -213,6 +218,7 @@ const AddStationModal = () => {
                                         type="text"
                                         id="latitude"
                                         value={selected.lat}
+                                        readOnly
                                         // onChange={(e) =>
                                         //     setLatitude(e.target.value)
                                         // }

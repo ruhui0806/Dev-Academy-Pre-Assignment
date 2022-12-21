@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import AddStationModal from '../AddStationModal'
 import Places from '../Places'
-import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 
 const Home = () => {
     const [selected, setSelected] = useState({
@@ -11,10 +10,6 @@ const Home = () => {
         address: 'Helsingin päärautatieasema, Kaivokatu, Helsinki, Finland',
     })
 
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
-    })
-    if (!isLoaded) return <div>Loading...</div>
     return (
         <div>
             <h1>This is the home page</h1>
