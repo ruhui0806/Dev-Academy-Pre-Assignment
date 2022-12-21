@@ -60,25 +60,37 @@ const RootQuery = new GraphQLObjectType({
                     name: 'offset',
                     type: GraphQLInt,
                 },
+                durationFilter: {
+                    name: 'durationFilter',
+                    type: GraphQLInt,
+                },
+                distanceFilter: {
+                    name: 'distanceFilter',
+                    type: GraphQLInt,
+                },
             },
             resolve(parent, args) {
                 return Journey.find({
                     Duration_sec: { $gte: 10 },
                     Covered_distance_m: { $gte: 10 },
                 })
+                    .find({
+                        Duration_sec: { $gte: args.durationFilter },
+                        Covered_distance_m: { $gte: args.durationFilter },
+                    })
                     .limit(args.limit)
                     .skip(args.offset)
             },
         },
-        getAlljourneys: {
-            type: new GraphQLList(JourneyType),
-            resolve(parent, args) {
-                return Journey.find({
-                    Duration_sec: { $gte: 10 },
-                    Covered_distance_m: { $gte: 10 },
-                })
-            },
-        },
+        // getAlljourneys: {
+        //     type: new GraphQLList(JourneyType),
+        //     resolve(parent, args) {
+        //         return Journey.find({
+        //             Duration_sec: { $gte: 10 },
+        //             Covered_distance_m: { $gte: 10 },
+        //         })
+        //     },
+        // },
 
         countAlljourneys: {
             type: GraphQLInt,

@@ -76,8 +76,18 @@ const COUNT_STATIONS = gql`
 `
 
 const GET_JOURNEYS = gql`
-    query getJourneys($limit: Int!, $skip: Int!) {
-        journeys(limit: $limit, offset: $skip) {
+    query getJourneys(
+        $limit: Int!
+        $skip: Int!
+        $durationFilter: Int!
+        $distanceFilter: Int!
+    ) {
+        journeys(
+            limit: $limit
+            offset: $skip
+            durationFilter: $durationFilter
+            distanceFilter: $distanceFilter
+        ) {
             Departure
             Return
             Departure_station_id

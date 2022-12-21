@@ -5,13 +5,8 @@ import Pagination from '../Pagination'
 import LoadingSpinner from '../LoadingSpinner'
 import { COUNT_JOURNEYS, GET_JOURNEYS } from '../../queries/queries'
 import { FaSort } from 'react-icons/fa'
-
+import { MdFilterAlt } from 'react-icons/md'
 const Journeys = () => {
-    // const indexOfLastItem = indexOfFirstItem + journeysPerPage
-    // const journeysResult = useQuery(GET_ALL_JOURNEYS, {
-    //     fetchPolicy: 'cache-first',
-    // })
-    // const [indexOfFirstItem, setIndexOfFirstItem] = useState(0)
     const [journeysPerPage, setJourneysPerPage] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
     const [sortConfig, setSortConfig] = useState({
@@ -19,18 +14,22 @@ const Journeys = () => {
         direction: 'ascending',
     })
     const [valueToSearch, setValueToSearch] = useState('')
+    const [durationToFilter, setDurationToFilter] = useState(0)
+    const [valuetoFilter, setValueToFilter] = useState(0)
+    const onClickFilter = () => {
+        setDurationToFilter(Number(valuetoFilter * 60))
+    }
 
     const journeysCount = useQuery(COUNT_JOURNEYS)
     const journeysResult = useQuery(GET_JOURNEYS, {
         variables: {
             limit: journeysPerPage,
             skip: (currentPage - 1) * journeysPerPage,
+            durationFilter: durationToFilter,
+            distanceFilter: 0,
         },
         fetchPolicy: 'cache-first',
     })
-
-    // console.log(journeysResult.data)
-    // console.log('count the total number of journeys: ', journeysCount.data)
 
     if (journeysResult.loading) return <LoadingSpinner />
     if (journeysResult.error) return <div>Error!</div>
@@ -64,20 +63,45 @@ const Journeys = () => {
         }
         setSortConfig({ attr, direction })
     }
-
+    const buttonStyle = {
+        marginLeft: 5,
+        padding: 0.5,
+        paddingBottom: 2,
+        paddingTop: 2,
+        paddingLeft: 5,
+        paddingRight: 5,
+        fontSize: 15,
+    }
     ////
     return (
         <div>
             <form className="form-inline">
-                <h5 className="d-inline p-3">
+                <p className="d-inline p-3">
                     Search Journey by depature/return station
-                </h5>
+                </p>
                 <input
                     type="text"
                     id="nameToSearch"
                     placeholder="Search for stations"
                     onChange={(e) => setValueToSearch(e.target.value)}
                 />
+                <br />
+                <p className="d-inline p-3">Filter Journys by Duration</p>
+                <input
+                    type="number"
+                    id="durationToFilter"
+                    placeholder="durationToFilter, in min"
+                    value={valuetoFilter}
+                    onChange={(e) => setValueToFilter(e.target.value)}
+                />
+                <button
+                    className="d-inline btn btn-outline-dark btn-sm"
+                    onClick={onClickFilter}
+                    style={buttonStyle}
+                >
+                    <MdFilterAlt />
+                </button>
+
                 <div className="d-inline p-3 form-group ml-auto">
                     <label className=" p-3 form-label ml-auto">
                         Journeys Per Page:
@@ -103,6 +127,8 @@ const Journeys = () => {
                         <th>
                             Departure Station
                             <span
+                                style={buttonStyle}
+                                className="btn btn-outline-dark btn-sm"
                                 onClick={() =>
                                     requestSort('Departure_station_name')
                                 }
@@ -115,6 +141,8 @@ const Journeys = () => {
                         <th>
                             Return Station
                             <span
+                                style={buttonStyle}
+                                className="btn btn-outline-dark btn-sm"
                                 onClick={() =>
                                     requestSort('Return_station_name')
                                 }
@@ -126,6 +154,8 @@ const Journeys = () => {
                         <th>
                             Covered distance (km)
                             <span
+                                style={buttonStyle}
+                                className="btn btn-outline-dark btn-sm"
                                 onClick={() =>
                                     requestSort('Covered_distance_m')
                                 }
@@ -134,10 +164,14 @@ const Journeys = () => {
                                 <FaSort />
                             </span>
                         </th>
-                        {/* <th>Duration (min)</th> */}
+
                         <th>
                             Duration (min)
-                            <span onClick={() => requestSort('Duration_sec')}>
+                            <span
+                                style={buttonStyle}
+                                className="btn btn-outline-dark btn-sm"
+                                onClick={() => requestSort('Duration_sec')}
+                            >
                                 {' '}
                                 <FaSort />
                             </span>
@@ -149,9 +183,10 @@ const Journeys = () => {
                         [...journeysResult.data.journeys]
                             .filter(
                                 (journey) =>
-                                    journey.Departure_station_name.includes(
-                                        valueToSearch
-                                    ) ||
+                                    (journey.Duration_sec >= durationToFilter &&
+                                        journey.Departure_station_name.includes(
+                                            valueToSearch
+                                        )) ||
                                     journey.Return_station_name.includes(
                                         valueToSearch
                                     )
