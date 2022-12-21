@@ -61,7 +61,15 @@ const Stations = () => {
         }
         setSortConfig({ attr, direction })
     }
-
+    const buttonStyle = {
+        marginLeft: 5,
+        padding: 0.5,
+        paddingBottom: 3.5,
+        paddingTop: 2,
+        paddingLeft: 5,
+        paddingRight: 5,
+        fontSize: 15,
+    }
     return (
         <div>
             <form className="form-inline">
@@ -93,44 +101,65 @@ const Stations = () => {
                     </select>
                 </div>
             </form>
+
             <table className="table table-hover mt-3">
                 <thead>
                     <tr>
                         <th>
                             ID
-                            <span onClick={() => requestSort('ID')}>
+                            <button
+                                style={buttonStyle}
+                                className="btn btn-light btn-sm"
+                                onClick={() => requestSort('ID')}
+                            >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
                         <th>
                             Name
-                            <span onClick={() => requestSort('Name')}>
+                            <button
+                                onClick={() => requestSort('Name')}
+                                style={buttonStyle}
+                                className="btn btn-light btn-sm"
+                            >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
                         <th>
                             Address
-                            <span onClick={() => requestSort('Osoite')}>
+                            <button
+                                onClick={() => requestSort('Osoite')}
+                                style={buttonStyle}
+                                className="btn btn-light btn-sm"
+                            >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
                         <th>
                             Capacity
-                            <span onClick={() => requestSort('Kapasiteet')}>
+                            <button
+                                onClick={() => requestSort('Kapasiteet')}
+                                style={buttonStyle}
+                                className="btn btn-light btn-sm"
+                            >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
-                        <th>
+                        {/* <th>
                             id
-                            <span onClick={() => requestSort('id')}>
+                            <button
+                                onClick={() => requestSort('id')}
+                                style={buttonStyle}
+                                className="btn btn-light btn-sm"
+                            >
                                 {' '}
                                 <FaSort />
-                            </span>
-                        </th>
+                            </button>
+                        </th> */}
                     </tr>
                 </thead>
                 <tbody>

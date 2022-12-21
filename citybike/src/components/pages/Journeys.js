@@ -66,7 +66,7 @@ const Journeys = () => {
     const buttonStyle = {
         marginLeft: 5,
         padding: 0.5,
-        paddingBottom: 2,
+        paddingBottom: 3.5,
         paddingTop: 2,
         paddingLeft: 5,
         paddingRight: 5,
@@ -95,7 +95,7 @@ const Journeys = () => {
                     onChange={(e) => setValueToFilter(e.target.value)}
                 />
                 <button
-                    className="d-inline btn btn-outline-dark btn-sm"
+                    className="d-inline btn btn-light btn-sm"
                     onClick={onClickFilter}
                     style={buttonStyle}
                 >
@@ -126,55 +126,55 @@ const Journeys = () => {
                     <tr>
                         <th>
                             Departure Station
-                            <span
+                            <button
                                 style={buttonStyle}
-                                className="btn btn-outline-dark btn-sm"
+                                className="btn btn-light btn-sm"
                                 onClick={() =>
                                     requestSort('Departure_station_name')
                                 }
                             >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
 
                         <th>
                             Return Station
-                            <span
+                            <button
                                 style={buttonStyle}
-                                className="btn btn-outline-dark btn-sm"
+                                className="btn btn-light btn-sm"
                                 onClick={() =>
                                     requestSort('Return_station_name')
                                 }
                             >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
                         <th>
                             Covered distance (km)
-                            <span
+                            <button
                                 style={buttonStyle}
-                                className="btn btn-outline-dark btn-sm"
+                                className="btn btn-light btn-sm"
                                 onClick={() =>
                                     requestSort('Covered_distance_m')
                                 }
                             >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
 
                         <th>
                             Duration (min)
-                            <span
+                            <button
                                 style={buttonStyle}
-                                className="btn btn-outline-dark btn-sm"
+                                className="btn btn-light btn-sm"
                                 onClick={() => requestSort('Duration_sec')}
                             >
                                 {' '}
                                 <FaSort />
-                            </span>
+                            </button>
                         </th>
                     </tr>
                 </thead>

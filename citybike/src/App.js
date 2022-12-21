@@ -9,7 +9,7 @@ import {
 import Stations from './components/pages/Stations'
 import Journeys from './components/pages/Journeys'
 import StationView from './components/StationView'
-import NotFound from './components/NotFound'
+import NotFound from './components/pages/NotFound'
 import Home from './components/pages/Home'
 import StationMap from './components/StationMap'
 const cache = new InMemoryCache({

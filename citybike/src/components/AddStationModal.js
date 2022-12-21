@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Places from './Places'
+import Places from './places/Places'
 import { GET_ALL_STATIONS } from '../queries/queries'
 import { ADD_STATION } from '../queries/StationMutations'
 import { useMutation } from '@apollo/client'

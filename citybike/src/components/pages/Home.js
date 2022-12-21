@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import AddStationModal from '../AddStationModal'
-import Places from '../Places'
+import Places from '../places/Places'
 
 const Home = () => {
     const [selected, setSelected] = useState({

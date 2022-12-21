@@ -1,17 +1,10 @@
 import { useState, useMemo } from 'react'
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 import PlacesAutocomplete from './PlacesAutocomplete'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 
 //define map functional component
 function Map({ selected, setSelected }) {
-    // const [selected, setSelected] = useState({
-    //     lat: 60.16582,
-    //     lng: 24.840319,
-    //     zipcode: '02100',
-    //     address: 'Hanasaarenranta 1',
-    // })
-
     const center = useMemo(() => selected, [selected])
     return (
         <div className="mb-3">
