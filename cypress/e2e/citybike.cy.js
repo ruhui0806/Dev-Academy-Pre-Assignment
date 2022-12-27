@@ -29,20 +29,31 @@ describe('search location on google autocomplete', function () {
         )
     })
 })
-describe('add station', function () {
-    it.only('click addStation button will toggle the addstation form to show', function () {
+
+describe('add a station and then search it', function () {
+    it('click addStation button will toggle the addstation form to show', function () {
         cy.visit('http://localhost:3000')
         cy.get('#addStationBtn').click()
         cy.get('#addStationModal').should('be.visible')
         cy.contains('Name')
     })
-    // it.only('a new station can be created', function () {
-    //     cy.visit('http://localhost:3000')
-    //     cy.get('#addStationBtn').click()
-    //     cy.get()
-    //     cy.get('.combobox-input:last').click().type('Espoon')
-    //     cy.contains('Espoon keskus, Espoo, Finland').click()
-    //     cy.get('#submit').click()
-    //     cy.visit('http://localhost:3000/stations').wait(5000)
-    // })
+    it('a new station can be created and the new station can be found in the station list', function () {
+        cy.visit('http://localhost:3000')
+        cy.get('#addStationBtn').click()
+        cy.get('#addStationModal').should('be.visible')
+        cy.get('.combobox-input:first').click().type('Espoon')
+        cy.contains('Espoon keskus, Espoo, Finland').click()
+        cy.get('button[type=submit]').click()
+        cy.get('#stations').click().wait(10000)
+        cy.get('#nameToSearch').click().type('keskus')
+        cy.contains('Espoon keskus')
+    })
+    it.only('search a station by address and click to single station new', function () {
+        cy.visit('http://localhost:3000')
+        cy.get('#stations').click().wait(10000)
+        cy.get('#nameToSearch').click().type('Metro')
+        cy.contains('Itäkeskus Metrovarikko').click()
+        cy.contains('Journeys start from here')
+        cy.contains('1049')
+    })
 })

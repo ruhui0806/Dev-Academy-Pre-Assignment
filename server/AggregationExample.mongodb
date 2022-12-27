@@ -38,3 +38,25 @@ const aggregation = [
 // Use toArray() to exhaust the cursor to return the whole result set.
 // You can use hasNext()/next() to iterate through the cursor page by page.
 db.sales.aggregate(aggregation);
+
+////////////////////////////////////////////////////////////////
+// const schema = require('../schema')
+// const mongoose = require('mongoose')
+
+// const dbAggregation = async (id) => {
+//     const connection = await mongoose.connect(process.env.MONGO_URI)
+//     const db = mongoose.connection
+//     console.log(Journeys.length)
+//     db.journeys.aggregate([
+//         {
+//             $match: {
+//                 Departure_station_id: {
+//                     $eq: id,
+//                 },
+//             },
+//         },
+//         { $sortByCount: '$Return_station_name' },
+//     ])
+// }
+
+// module.exports = dbAggregation

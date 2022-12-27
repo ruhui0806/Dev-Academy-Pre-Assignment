@@ -254,6 +254,7 @@ const AddStationModal = () => {
                                     />
                                 </div>
                                 <button
+                                    id="submit"
                                     type="submit"
                                     className="btn btn-primary mb-3"
                                     data-bs-dismiss="modal"
