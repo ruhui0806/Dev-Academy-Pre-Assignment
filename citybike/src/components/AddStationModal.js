@@ -57,6 +57,7 @@ const AddStationModal = () => {
         <div>
             <button
                 type="button"
+                id="addStationBtn"
                 className="btn btn-secondary"
                 data-bs-toggle="modal"
                 data-bs-target="#addStationModal"

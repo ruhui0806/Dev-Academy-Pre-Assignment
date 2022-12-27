@@ -33,15 +33,15 @@ const PlacesAutocomplete = ({ setSelected }) => {
     }
 
     return (
-        <Combobox onSelect={handleSelect} className="">
+        <Combobox onSelect={handleSelect}>
             <ComboboxInput
+                className="pac-container combobox-input form-control"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 disabled={!ready}
-                className="pac-container combobox-input form-control"
                 placeholder="Search an address"
             />
-            <ComboboxPopover portal={false}>
+            <ComboboxPopover portal={false} id="popover">
                 <ComboboxList>
                     {status === 'OK' &&
                         data.map(({ place_id, description }) => (

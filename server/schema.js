@@ -16,14 +16,19 @@ const JourneyType = new GraphQLObjectType({
     name: 'Journey',
     fields: () => ({
         id: { type: GraphQLString },
-        Departure: { type: GraphQLString },
-        Return: { type: GraphQLString },
+        Departure: { type: GraphQLFloat },
+        Return: { type: GraphQLFloat },
         Departure_station_id: { type: GraphQLInt },
         Departure_station_name: { type: GraphQLString },
         Return_station_id: { type: GraphQLInt },
         Return_station_name: { type: GraphQLString },
         Covered_distance_m: { type: GraphQLInt },
-        Duration_sec: { type: GraphQLInt },
+        Duration_sec: {
+            type: GraphQLInt,
+            resolve(parent, args) {
+                return (parent.Return - parent.Departure) / 1000
+            },
+        },
     }),
 })
 
@@ -74,6 +79,7 @@ const RootQuery = new GraphQLObjectType({
                     Duration_sec: { $gte: 10 },
                     Covered_distance_m: { $gte: 10 },
                 })
+
                     .find({
                         Duration_sec: { $gte: args.durationFilter },
                         Covered_distance_m: { $gte: args.durationFilter },
@@ -82,15 +88,6 @@ const RootQuery = new GraphQLObjectType({
                     .skip(args.offset)
             },
         },
-        // getAlljourneys: {
-        //     type: new GraphQLList(JourneyType),
-        //     resolve(parent, args) {
-        //         return Journey.find({
-        //             Duration_sec: { $gte: 10 },
-        //             Covered_distance_m: { $gte: 10 },
-        //         })
-        //     },
-        // },
 
         countAlljourneys: {
             type: GraphQLInt,

@@ -4,8 +4,10 @@
     "description": "# Description:",
     "main": "index.js",
     "scripts": {
-        "start": "node server/index.js",
-        "dev": "nodemon server/index.js"
+        "start": "cross-env NODE_ENV=production node index.js",
+        "dev": "cross-env NODE_ENV=development nodemon index.js",
+        "start:test": "cross-env NODE_ENV=test node index.js",
+        "cypress:open": "cypress open"
     },
     "repository": {
         "type": "git",
@@ -29,6 +31,7 @@
         "react-bootstrap": "^2.6.0"
     },
     "devDependencies": {
+        "cypress": "^12.2.0",
         "nodemon": "^2.0.20"
     }
 }

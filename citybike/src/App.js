@@ -46,14 +46,26 @@ function App() {
                     <Header />
                     <div className="container">
                         <div className="d-flex gap-2">
-                            <Link to="/" className="btn btn-primary p1-1">
+                            <Link
+                                to="/"
+                                className="btn btn-primary p1-1"
+                                id="home"
+                            >
                                 Home
                             </Link>
 
-                            <Link to="/journeys" className="btn btn-primary">
+                            <Link
+                                to="/journeys"
+                                className="btn btn-primary"
+                                id="journeys"
+                            >
                                 Journeys
                             </Link>
-                            <Link to="/stations" className="btn btn-primary">
+                            <Link
+                                to="/stations"
+                                className="btn btn-primary"
+                                id="stations"
+                            >
                                 Stations
                             </Link>
                         </div>
