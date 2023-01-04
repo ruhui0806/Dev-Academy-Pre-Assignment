@@ -97,6 +97,7 @@ const Journeys = () => {
                 />
                 <button
                     className="d-inline btn btn-light btn-sm"
+                    id="durationFilter"
                     onClick={onClickFilter}
                     style={buttonStyle}
                 >

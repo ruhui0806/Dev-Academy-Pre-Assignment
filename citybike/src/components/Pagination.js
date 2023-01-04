@@ -34,6 +34,7 @@ const Pagination = ({ lastPage, paginate, currentPage, handlePageClick }) => {
                     </li>
                     <li className="page-item" key="{jumptoThePage}">
                         <input
+                            id="pagination"
                             className="form-control"
                             value={currentValue}
                             placeholder="Jump to the page: "

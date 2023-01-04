@@ -93,12 +93,26 @@ describe('order station by column', function () {
     })
 })
 
-describe('search, order and filter journeys', function () {
+describe('search, pagination and filter journeys', function () {
     beforeEach(function () {
         cy.visit('http://localhost:3000')
         cy.get('#journeys').click().wait(50000)
     })
-    it.only('a journey can be searched', function () {
-        cy.get('#journeys').click().wait(50000)
+    it('a journey can be searched', function () {
+        cy.get('#nameToSearch').click().type('Ratsutori')
+        cy.contains('Upseerinkatu')
+    })
+    it('a journey can be searched', function () {
+        cy.contains('Ratsutori')
+        cy.get('#durationToFilter').click().clear().type('10')
+        cy.get('#durationFilter').click()
+        cy.contains('Ratsutori').should('not.exist')
+    })
+    it.only('pagination can be used', function () {
+        cy.contains('Pasilan asema')
+        cy.get('#pagination').click().clear().type('2')
+        cy.get('.page-item.page-link').click()
+        cy.contains('Kaivopuisto')
+        cy.contains('Pasilan asema').should('not.exist')
     })
 })
