@@ -2,8 +2,8 @@ const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 const { graphqlHTTP } = require('express-graphql')
-const schema = require('./schema')
-const dbConnection = require('./config/MongoDBconnect')
+const schema = require('./server/schema.js')
+const dbConnection = require('./server/config/MongoDBconnect')
 
 dbConnection()
 
