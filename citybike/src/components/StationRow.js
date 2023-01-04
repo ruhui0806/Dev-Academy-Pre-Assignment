@@ -31,11 +31,7 @@ const StationRow = ({ station }) => {
                     {station.Kapasiteet}
                 </Link>
             </td>
-            {/* <td>
-                <Link to={`/stations/${station.ID}`} className="page-link ">
-                    {station.id}
-                </Link>
-            </td> */}
+
             <td>
                 <button
                     className="btn btn-danger btn-sm"

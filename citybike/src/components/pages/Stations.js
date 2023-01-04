@@ -111,6 +111,7 @@ const Stations = () => {
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
                                 onClick={() => requestSort('ID')}
+                                id="btn-sort-id"
                             >
                                 {' '}
                                 <FaSort />
@@ -122,6 +123,7 @@ const Stations = () => {
                                 onClick={() => requestSort('Name')}
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="btn-sort-name"
                             >
                                 {' '}
                                 <FaSort />
@@ -133,6 +135,7 @@ const Stations = () => {
                                 onClick={() => requestSort('Osoite')}
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="btn-sort-address"
                             >
                                 {' '}
                                 <FaSort />
@@ -144,6 +147,7 @@ const Stations = () => {
                                 onClick={() => requestSort('Kapasiteet')}
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="btn-sort-capacity"
                             >
                                 {' '}
                                 <FaSort />

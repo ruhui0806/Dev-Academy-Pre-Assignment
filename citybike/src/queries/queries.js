@@ -14,42 +14,26 @@ const GET_STATION = gql`
         }
     }
 `
-const COUNT_JOURNEY_START_FROM_HERE = gql`
-    query countJourneysbyDepartureId($idd: Int!) {
-        countJourneysbyDepartureId(departureId: $idd)
-    }
-`
-// const FIND_JOURNEYS_BY_DEPARTURE = gql`
-//     query findJourneysByDepatureId($idd: Int!) {
-//         findJourneysByDepatureId(departureId: $idd)
+// const GET_STATIONS = gql`
+//     query getStations($limit: Int!, $skip: Int!) {
+//         stations(limit: $limit, offset: $skip) {
+//             Adress
+//             ID
+//             Name
+//             Nimi
+//             Namn
+//             Osoite
+//             Kaupunki
+//             Stad
+//             Operaattor
+//             Kapasiteet
+//             x
+//             y
+//             id
+//         }
 //     }
 // `
 
-const COUNT_JOURNEY_END_AT_HERE = gql`
-    query countJourneysbyReturnId($idd: Int!) {
-        countJourneysbyReturnId(returnId: $idd)
-    }
-`
-
-const GET_STATIONS = gql`
-    query getStations($limit: Int!, $skip: Int!) {
-        stations(limit: $limit, offset: $skip) {
-            Adress
-            ID
-            Name
-            Nimi
-            Namn
-            Osoite
-            Kaupunki
-            Stad
-            Operaattor
-            Kapasiteet
-            x
-            y
-            id
-        }
-    }
-`
 const GET_ALL_STATIONS = gql`
     query getAllstations {
         stations {
@@ -72,6 +56,17 @@ const GET_ALL_STATIONS = gql`
 const COUNT_STATIONS = gql`
     query countAllstations {
         countAllstations
+    }
+`
+const COUNT_JOURNEY_START_FROM_HERE = gql`
+    query countJourneysbyDepartureId($idd: Int!) {
+        countJourneysbyDepartureId(departureId: $idd)
+    }
+`
+
+const COUNT_JOURNEY_END_AT_HERE = gql`
+    query countJourneysbyReturnId($idd: Int!) {
+        countJourneysbyReturnId(returnId: $idd)
     }
 `
 
@@ -126,7 +121,7 @@ export {
     COUNT_JOURNEY_START_FROM_HERE,
     // FIND_JOURNEYS_BY_DEPARTURE,
     COUNT_JOURNEY_END_AT_HERE,
-    GET_STATIONS,
+    // GET_STATIONS,
     GET_ALL_STATIONS,
     COUNT_STATIONS,
     GET_JOURNEYS,

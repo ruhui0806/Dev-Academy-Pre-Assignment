@@ -86,11 +86,12 @@ const Journeys = () => {
                     onChange={(e) => setValueToSearch(e.target.value)}
                 />
                 <br />
-                <p className="d-inline p-3">Filter Journys by Duration</p>
+                <p className="d-inline p-3">
+                    Filter Journeys by Duration (min)
+                </p>
                 <input
                     type="number"
                     id="durationToFilter"
-                    placeholder="durationToFilter, in min"
                     value={valuetoFilter}
                     onChange={(e) => setValueToFilter(e.target.value)}
                 />

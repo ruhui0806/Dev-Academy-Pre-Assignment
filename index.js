@@ -21,9 +21,9 @@ app.use(
     })
 )
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('build'))
+    app.use(express.static('citybike/build'))
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'citybike', 'build', 'index.html'))
     })
 }
 
