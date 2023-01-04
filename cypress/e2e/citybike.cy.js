@@ -94,5 +94,11 @@ describe('order station by column', function () {
 })
 
 describe('search, order and filter journeys', function () {
-    it('a journey can be searched')
+    beforeEach(function () {
+        cy.visit('http://localhost:3000')
+        cy.get('#journeys').click().wait(50000)
+    })
+    it('a journey can be searched', function () {
+        cy.get('#journeys').click().wait(50000)
+    })
 })
