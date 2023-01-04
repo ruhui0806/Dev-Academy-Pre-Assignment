@@ -18,7 +18,6 @@ app.use(
     graphqlHTTP({
         schema,
         graphiql: true,
-        // graphiql: process.env.NODE_ENV === 'development',
     })
 )
 if (process.env.NODE_ENV === 'production') {
