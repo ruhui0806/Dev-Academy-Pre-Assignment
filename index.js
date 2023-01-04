@@ -4,7 +4,7 @@ require('dotenv').config()
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./server/schema.js')
 const dbConnection = require('./server/config/MongoDBconnect')
-
+const path = require('path')
 dbConnection()
 
 const port = process.env.PORT || 9000
