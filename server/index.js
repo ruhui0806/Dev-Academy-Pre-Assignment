@@ -17,8 +17,15 @@ app.use(
     '/graphql',
     graphqlHTTP({
         schema,
-        graphiql: process.env.NODE_ENV === 'development',
+        graphiql: true,
+        // graphiql: process.env.NODE_ENV === 'development',
     })
 )
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    })
+}
 
 app.listen(port, console.log(`Server running on port ${port}`))
