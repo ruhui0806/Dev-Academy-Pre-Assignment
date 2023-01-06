@@ -5,23 +5,9 @@ const Pagination = ({ lastPage, paginate, currentPage, handlePageClick }) => {
     const [currentValue, setCurrentValue] = useState('')
     return (
         <div>
+            {/* nagivation part */}
             <nav aria-label="Page navigation">
                 <ul className="pagination justify-content-center">
-                    {/* <li className="page-item">
-                    <a
-                        className="page-link active"
-                        href="#"
-                        aria-label="Previous"
-                        onClick={
-                            currentPage === 1
-                                ? () => paginate(currentPage)
-                                : () => paginate(currentPage - 1)
-                        }
-                    >
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li> */}
-
                     <li className="page-item" key={currentPage}>
                         <a
                             className="page-link"
@@ -55,6 +41,7 @@ const Pagination = ({ lastPage, paginate, currentPage, handlePageClick }) => {
                     </li>
                 </ul>
             </nav>
+            {/* react-pagination part: */}
             <div>
                 <ReactPaginate
                     className="pagination justify-content-center"

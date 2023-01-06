@@ -121,28 +121,6 @@ const RootQuery = new GraphQLObjectType({
             },
         },
 
-        // findJourneysByDepatureId: {
-        //     type: new GraphQLList(JourneyType),
-        //     args: { departureId: { type: GraphQLInt } },
-        //     resolve(parent, args) {
-        //         return Journey.find({
-        //             Departure_station_id: args.departureId,
-        //         }).sort({ Return_station_name: 1 })
-        //     },
-        // },
-        // findJourneysByReturnId: {
-        //     type: new GraphQLList(JourneyType),
-        //     args: { returnId: { type: GraphQLInt } },
-        //     resolve(parent, args) {
-        //         // return journeys.find(
-        //         //     (j) => j.Return_station_name === args.return
-        //         // )
-        //         return Journey.find({ Return_station_id: args.returnId }).sort({
-        //             Departure_station_name: 1,
-        //         })
-        //     },
-        // },
-
         stations: {
             type: new GraphQLList(StationType),
             args: {
@@ -173,13 +151,6 @@ const RootQuery = new GraphQLObjectType({
             },
         },
 
-        // findStationByCity: {
-        //     type: new GraphQLList(StationType),
-        //     args: { city: { type: GraphQLString } },
-        //     resolve(parent, args) {
-        //         return Station.find({ Kaupunki: args.city })
-        //     },
-        // },
         findStationById: {
             type: StationType,
             args: { id: { type: GraphQLInt } },
@@ -188,66 +159,12 @@ const RootQuery = new GraphQLObjectType({
                 return Station.findOne({ ID: args.id })
             },
         },
-        // findStationByGraphQLId: {
-        //     type: StationType,
-        //     args: { id: { type: GraphQLID } },
-        //     resolve(parent, args) {
-        //         // return stations.find((station) => station.ID === args.id)
-        //         return Station.findById(args.id)
-        //     },
-        // },
-        // findStationByName: {
-        //     type: StationType,
-        //     args: { name: { type: GraphQLString } },
-        //     resolve(parent, args) {
-        //         // return stations.find((station) => station.Name === args.name)
-        //         return Station.findOne({ Name: args.name })
-        //     },
-        // },
     },
 })
 //mutations
 const allMutations = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        // //add a journey:
-        // addJourney: {
-        //     type: JourneyType,
-        //     args: {
-        //         Departure: { type: GraphQLNonNull(GraphQLString) },
-        //         Departure_station_name: { type: GraphQLNonNull(GraphQLString) },
-        //         Departure_station_id: { type: GraphQLNonNull(GraphQLInt) },
-        //         Return: { type: GraphQLNonNull(GraphQLString) },
-        //         Return_station_name: { type: GraphQLNonNull(GraphQLString) },
-        //         Return_station_id: { type: GraphQLNonNull(GraphQLInt) },
-        //         Covered_distance_m: { type: GraphQLNonNull(GraphQLInt) },
-        //         Duration_sec: { type: GraphQLNonNull(GraphQLInt) },
-        //     },
-        //     resolve(parent, args) {
-        //         const journey = new Journey({
-        //             Departure: args.Departure,
-        //             Departure_station_name: args.Departure_station_name,
-        //             Departure_station_id: args.Departure_station_id,
-        //             Return: args.Return,
-        //             Return_station_name: args.Return_station_name,
-        //             Return_station_id: args.Return_station_id,
-        //             Covered_distance_m: args.Covered_distance_m,
-        //             Duration_sec: args.Duration_sec,
-        //         })
-        //         return journey.save()
-        //         // Client.create()
-        //     },
-        // },
-        // //delete a journey:
-        // deleteJourney: {
-        //     type: JourneyType,
-        //     args: {
-        //         ID: { type: GraphQLNonNull(GraphQLID) },
-        //     },
-        //     resolve(parent, args) {
-        //         return Journey.findOneAndRemove({ ID: args.ID })
-        //     },
-        // },
         //add a station:
         addStation: {
             type: StationType,
@@ -282,16 +199,6 @@ const allMutations = new GraphQLObjectType({
             },
         },
 
-        // deleteStation: {
-        //     type: StationType,
-        //     args: {
-        //         ID: { type: GraphQLNonNull(GraphQLInt) },
-        //     },
-        //     resolve(parent, args) {
-        //         return Station.findOneAndRemove({ ID: args.ID })
-        //     },
-        // },
-
         //delete a station:
         deleteStationByGraphQLId: {
             type: StationType,
@@ -309,5 +216,3 @@ module.exports = new GraphQLSchema({
     query: RootQuery,
     mutation: allMutations,
 })
-
-//schema based on graphql-schema

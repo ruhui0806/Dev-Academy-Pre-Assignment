@@ -11,31 +11,32 @@ import {
 } from '../queries/queries'
 
 const StationView = () => {
+    //get the current station's information:
     const thisId = parseInt(useParams().id)
+    const singleStation = useQuery(GET_STATION, {
+        variables: {
+            idd: thisId,
+        },
+    })
+    const station = singleStation.data.findStationById
 
+    //journey count related queries:
     const journeyStartCount = useQuery(COUNT_JOURNEY_START_FROM_HERE, {
         variables: {
             idd: thisId,
         },
     })
-
     const journeyEndCount = useQuery(COUNT_JOURNEY_END_AT_HERE, {
         variables: {
             idd: thisId,
         },
     })
 
-    const singleStation = useQuery(GET_STATION, {
-        variables: {
-            idd: thisId,
-        },
-    })
-
+    //station view on the map:
     const { mapLoading } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
     })
 
-    // console.log('environment variables: ', process.env)
     if (journeyStartCount.loading) return <LoadingSpinner />
     if (journeyStartCount.error) return <div>Error!</div>
     if (journeyEndCount.loading) return <LoadingSpinner />
@@ -43,16 +44,6 @@ const StationView = () => {
     if (singleStation.loading) return <LoadingSpinner />
     if (singleStation.error) return <div>Error!</div>
     if (mapLoading) return <LoadingSpinner />
-
-    const station = singleStation.data.findStationById
-    // console.log(station)
-
-    // const countOfJourneyStart =
-    //     journeyStartCount.data.countJourneysbyDepartureId
-    // // console.log('Journey start from here', countOfJourneyStart)
-
-    // const countOfJourneyEnd = journeyEndCount.data.countJourneysbyReturnId
-    // // console.log('Journey end at here:', countOfJourneyEnd)
 
     return (
         <div>
@@ -66,8 +57,6 @@ const StationView = () => {
                                 <th>Address</th>
                                 <th>Journeys start from here</th>
                                 <th>Journeys end at here</th>
-                                {/* <th>Top 5 Return stations</th>
-                                <th>Top 5 Departure stations</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -92,8 +81,6 @@ const StationView = () => {
                                         }
                                     </td>
                                 )}
-                                {/* <td>...</td>
-                                <td>...</td> */}
                             </tr>
                         </tbody>
                     </table>

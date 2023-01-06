@@ -4,9 +4,10 @@ import LoadingSpinner from '../LoadingSpinner'
 import { FaSort } from 'react-icons/fa'
 import Pagination from '../Pagination'
 import { GET_ALL_STATIONS, COUNT_STATIONS } from '../../queries/queries'
-
 import StationRow from '../StationRow'
+
 const Stations = () => {
+    //pagination related variables
     const [stationsPerPage, setStationsPerPage] = useState(10)
     const [currentPage, setCurrentPage] = useState(1)
     const [indexOfFirstStation, setIndexOfFirstStation] = useState(0)
@@ -14,19 +15,18 @@ const Stations = () => {
         attr: 'ID',
         direction: 'ascending',
     })
-
     const indexOfLastStation = indexOfFirstStation + stationsPerPage
-
     const [valueToSearch, setValueToSearch] = useState('')
 
+    //query-related:
     const stationsResult = useQuery(GET_ALL_STATIONS, {
         fetchPolicy: 'cache-first',
     })
-
     const stationsCount = useQuery(COUNT_STATIONS)
     if (stationsResult.loading) return <LoadingSpinner />
     if (stationsResult.error) return <div>Error!</div>
 
+    //pagination related functions:
     const paginate = (pageNumber) => {
         const newOffset = (pageNumber - 1) * stationsPerPage
         setIndexOfFirstStation(newOffset)
@@ -35,7 +35,6 @@ const Stations = () => {
     const lastPage = Math.ceil(
         stationsCount.data.countAllstations / stationsPerPage
     )
-
     const handlePageClick = (event) => {
         const newOffset = event.selected * stationsPerPage
         console.log(
@@ -45,6 +44,7 @@ const Stations = () => {
         setCurrentPage(event.selected + 1)
     }
 
+    //sort-by-column functions:
     const SortByColumn = (a, b) => {
         if (a[sortConfig.attr] < b[sortConfig.attr]) {
             return sortConfig.direction === 'ascending' ? -1 : 1
@@ -61,6 +61,8 @@ const Stations = () => {
         }
         setSortConfig({ attr, direction })
     }
+
+    //component styles:
     const buttonStyle = {
         marginLeft: 5,
         padding: 0.5,
@@ -70,6 +72,7 @@ const Stations = () => {
         paddingRight: 5,
         fontSize: 15,
     }
+
     return (
         <div>
             <form className="form-inline">
@@ -153,17 +156,6 @@ const Stations = () => {
                                 <FaSort />
                             </button>
                         </th>
-                        {/* <th>
-                            id
-                            <button
-                                onClick={() => requestSort('id')}
-                                style={buttonStyle}
-                                className="btn btn-light btn-sm"
-                            >
-                                {' '}
-                                <FaSort />
-                            </button>
-                        </th> */}
                     </tr>
                 </thead>
                 <tbody>

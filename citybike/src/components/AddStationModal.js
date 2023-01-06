@@ -4,6 +4,7 @@ import { GET_ALL_STATIONS } from '../queries/queries'
 import { ADD_STATION } from '../queries/StationMutations'
 import { useMutation } from '@apollo/client'
 const AddStationModal = () => {
+    //autocomplete-form related variables:
     const [selected, setSelected] = useState({
         lat: 60.1718729,
         lng: 24.9414217,
@@ -11,19 +12,18 @@ const AddStationModal = () => {
         address: 'Helsingin päärautatieasema, Kaivokatu, Helsinki, Finland',
     })
 
+    //new-station-related variables:
     const [namn, setNamn] = useState('')
-
     const [adress, setAdress] = useState('')
-
     const [stad, setStad] = useState('')
     const [kapasiteet, setKapasiteet] = useState(10)
     const [operaattor, setOperaattor] = useState('CityBike Finland')
     const [error, setError] = useState('')
 
+    //add station query-mutations:
     const [addStation] = useMutation(ADD_STATION, {
         update(cache, { data: { addStation } }) {
             const { stations } = cache.readQuery({ query: GET_ALL_STATIONS })
-
             cache.writeQuery({
                 query: GET_ALL_STATIONS,
                 data: { stations: [...stations, addStation] },
@@ -34,9 +34,9 @@ const AddStationModal = () => {
         },
     })
 
+    //submit add station form function:
     const onSubmit = (e) => {
         e.preventDefault()
-
         addStation({
             variables: {
                 name: selected.address.split(',')[0],
@@ -53,6 +53,7 @@ const AddStationModal = () => {
             },
         })
     }
+
     return (
         <div>
             <button
@@ -105,11 +106,6 @@ const AddStationModal = () => {
                                         id="name"
                                         value={selected.address.split(',')[0]}
                                         readOnly
-                                        // onChange={(e) =>
-                                        //     setName(
-                                        //         selected.address.split(',')[0]
-                                        //     )
-                                        // }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -120,11 +116,6 @@ const AddStationModal = () => {
                                         id="nimi"
                                         value={selected.address.split(',')[0]}
                                         readOnly
-                                        // onChange={(e) =>
-                                        //     setNimi(
-                                        //         selected.address.split(',')[0]
-                                        //     )
-                                        // }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -147,11 +138,6 @@ const AddStationModal = () => {
                                         id="osoite"
                                         value={selected.address.split(',')[1]}
                                         readOnly
-                                        // onChange={(e) =>
-                                        //     setOsoite(
-                                        //         selected.address.split(',')[1]
-                                        //     )
-                                        // }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -176,11 +162,6 @@ const AddStationModal = () => {
                                         id="kaupunki"
                                         value={selected.address.split(',')[2]}
                                         readOnly
-                                        // onChange={(e) =>
-                                        //     setKaupunki(
-                                        //         selected.address.split(',')[2]
-                                        //     )
-                                        // }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -205,9 +186,6 @@ const AddStationModal = () => {
                                         id="longitude"
                                         value={selected.lng}
                                         readOnly
-                                        // onChange={(e) =>
-                                        //     setLongitude(e.target.value)
-                                        // }
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -220,9 +198,6 @@ const AddStationModal = () => {
                                         id="latitude"
                                         value={selected.lat}
                                         readOnly
-                                        // onChange={(e) =>
-                                        //     setLatitude(e.target.value)
-                                        // }
                                     />
                                 </div>
                                 <div className="mb-3">

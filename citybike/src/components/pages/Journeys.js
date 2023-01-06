@@ -6,13 +6,17 @@ import LoadingSpinner from '../LoadingSpinner'
 import { COUNT_JOURNEYS, GET_JOURNEYS } from '../../queries/queries'
 import { FaSort } from 'react-icons/fa'
 import { MdFilterAlt } from 'react-icons/md'
+
 const Journeys = () => {
+    //pagination related variables
     const [journeysPerPage, setJourneysPerPage] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
     const [sortConfig, setSortConfig] = useState({
         attr: 'Duration_sec',
         direction: 'ascending',
     })
+
+    //search and filtering-functions related variables
     const [valueToSearch, setValueToSearch] = useState('')
     const [durationToFilter, setDurationToFilter] = useState(0)
     const [valuetoFilter, setValueToFilter] = useState(0)
@@ -20,6 +24,7 @@ const Journeys = () => {
         setDurationToFilter(Number(valuetoFilter * 60))
     }
 
+    //query-related:
     const journeysCount = useQuery(COUNT_JOURNEYS)
     const journeysResult = useQuery(GET_JOURNEYS, {
         variables: {
@@ -36,16 +41,16 @@ const Journeys = () => {
     if (journeysCount.loading) return <LoadingSpinner />
     if (journeysCount.error) return <div>Error!</div>
 
+    //pagination related functions:
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
-
     const lastPage = Math.ceil(
         parseInt(journeysCount.data.countAlljourneys) / journeysPerPage
     )
-
     const handlePageClick = (event) => {
         setCurrentPage(event.selected + 1)
     }
 
+    //sort-by-column functions:
     const SortByColumn = (a, b) => {
         if (a[sortConfig.attr] < b[sortConfig.attr]) {
             return sortConfig.direction === 'ascending' ? -1 : 1
@@ -55,7 +60,6 @@ const Journeys = () => {
         }
         return 0
     }
-
     const requestSort = (attr) => {
         let direction = 'ascending'
         if (sortConfig.attr === attr && sortConfig.direction === 'ascending') {
@@ -63,6 +67,8 @@ const Journeys = () => {
         }
         setSortConfig({ attr, direction })
     }
+
+    //component styles:
     const buttonStyle = {
         marginLeft: 5,
         padding: 0.5,
@@ -72,7 +78,7 @@ const Journeys = () => {
         paddingRight: 5,
         fontSize: 15,
     }
-    ////
+
     return (
         <div>
             <form className="form-inline">

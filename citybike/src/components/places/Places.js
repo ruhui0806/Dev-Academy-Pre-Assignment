@@ -3,7 +3,7 @@ import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api'
 import PlacesAutocomplete from './PlacesAutocomplete'
 import LoadingSpinner from '../LoadingSpinner'
 
-//define map functional component
+//define map-view functional component
 function Map({ selected, setSelected }) {
     const center = useMemo(() => selected, [selected])
     return (
@@ -23,7 +23,8 @@ function Map({ selected, setSelected }) {
         </div>
     )
 }
-//define final functional component combining map and autocomplete components:
+
+//define final map functional component combining map and autocomplete components:
 export default function Places({ selected, setSelected }) {
     const [libraries] = useState(['places'])
     const { isLoaded } = useLoadScript({
