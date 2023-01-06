@@ -69,9 +69,9 @@ describe('order station by column', function () {
     })
     it('stations can be ordered by ID', function () {
         cy.get('#btn-sort-id').click()
-        cy.contains('10581')
-        cy.contains('Helsingin päärautatieasema')
-        cy.contains('Kaivokatu')
+        cy.contains('902')
+        cy.contains('Derby Business Park')
+        cy.contains('Tarvonsalmenkatu 17')
     })
     it('stations can be ordered by name', function () {
         cy.get('#btn-sort-name').click()
@@ -79,13 +79,13 @@ describe('order station by column', function () {
         cy.contains('A.I. Virtasen aukio')
         cy.contains('Gustaf Hällströmin katu 1')
     })
-    it('stations can be ordered by ID', function () {
+    it('stations can be ordered by address', function () {
         cy.get('#btn-sort-address').click().click()
         cy.contains('17')
         cy.contains('Varsapuistikko')
         cy.contains('Yrjö-Koskisen katu 1')
     })
-    it('stations can be ordered by ID', function () {
+    it('stations can be ordered by capacity', function () {
         cy.get('#btn-sort-capacity').click().click()
         cy.contains('627')
         cy.contains('Piispansilta 11')

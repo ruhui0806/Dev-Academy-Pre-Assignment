@@ -6,7 +6,7 @@ const StationMap = ({ x, y }) => {
     const center = useMemo(() => ({ lng: x, lat: y }), [])
 
     return (
-        <GoogleMap zoom={15} center={center}>
+        <GoogleMap zoom={18} center={center}>
             <MarkerF position={center} />
         </GoogleMap>
     )

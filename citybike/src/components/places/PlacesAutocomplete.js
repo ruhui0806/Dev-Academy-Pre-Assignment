@@ -21,7 +21,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
         suggestions: { status, data },
         clearSuggestions,
     } = usePlacesAutocomplete()
-
+    //handle selected location:
     const handleSelect = async (address) => {
         setValue(address, false)
         clearSuggestions()

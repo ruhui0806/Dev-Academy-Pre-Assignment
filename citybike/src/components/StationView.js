@@ -18,7 +18,6 @@ const StationView = () => {
             idd: thisId,
         },
     })
-    const station = singleStation.data.findStationById
 
     //journey count related queries:
     const journeyStartCount = useQuery(COUNT_JOURNEY_START_FROM_HERE, {
@@ -44,6 +43,8 @@ const StationView = () => {
     if (singleStation.loading) return <LoadingSpinner />
     if (singleStation.error) return <div>Error!</div>
     if (mapLoading) return <LoadingSpinner />
+
+    const station = singleStation.data.findStationById
 
     return (
         <div>

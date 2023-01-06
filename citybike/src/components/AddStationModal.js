@@ -15,11 +15,32 @@ const AddStationModal = () => {
     //new-station-related variables:
     const [namn, setNamn] = useState('')
     const [adress, setAdress] = useState('')
+    const [osoite, setOsoite] = useState(selected.address.split(',')[1])
     const [stad, setStad] = useState('')
     const [kapasiteet, setKapasiteet] = useState(10)
     const [operaattor, setOperaattor] = useState('CityBike Finland')
     const [error, setError] = useState('')
 
+    //submit add station form function:
+    const onSubmit = (e) => {
+        e.preventDefault()
+        console.log(selected.address)
+        addStation({
+            variables: {
+                name: selected.address.split(',')[0],
+                nimi: selected.address.split(',')[0],
+                namn: namn,
+                osoite: osoite,
+                adress: adress,
+                kaupunki: selected.address.split(',')[2],
+                stad: stad,
+                operaattor: operaattor,
+                kapasiteet: kapasiteet,
+                latitude: selected.lat.toString(),
+                longitude: selected.lng.toString(),
+            },
+        })
+    }
     //add station query-mutations:
     const [addStation] = useMutation(ADD_STATION, {
         update(cache, { data: { addStation } }) {
@@ -33,26 +54,6 @@ const AddStationModal = () => {
             setError(error.graphQLErrors[0].message)
         },
     })
-
-    //submit add station form function:
-    const onSubmit = (e) => {
-        e.preventDefault()
-        addStation({
-            variables: {
-                name: selected.address.split(',')[0],
-                nimi: selected.address.split(',')[0],
-                namn: namn,
-                osoite: selected.address.split(',')[1],
-                adress: adress,
-                kaupunki: selected.address.split(',')[2],
-                stad: stad,
-                operaattor: operaattor,
-                kapasiteet: kapasiteet,
-                latitude: selected.lat.toString(),
-                longitude: selected.lng.toString(),
-            },
-        })
-    }
 
     return (
         <div>
@@ -136,8 +137,10 @@ const AddStationModal = () => {
                                         className="form-control"
                                         type="text"
                                         id="osoite"
-                                        value={selected.address.split(',')[1]}
-                                        readOnly
+                                        value={osoite}
+                                        onChange={(e) =>
+                                            setOsoite(e.target.value)
+                                        }
                                     />
                                 </div>
                                 <div className="mb-3">
