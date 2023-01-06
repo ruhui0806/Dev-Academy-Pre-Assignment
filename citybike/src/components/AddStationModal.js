@@ -9,13 +9,16 @@ const AddStationModal = () => {
         lat: 60.1718729,
         lng: 24.9414217,
         zipcode: '00100',
-        address: 'Helsingin päärautatieasema, Kaivokatu, Helsinki, Finland',
+        address: 'Helsingin päärautatieasema, Kaivokatu 1, Helsinki, Finland',
     })
 
     //new-station-related variables:
+    const [name, setName] = useState('')
+    const [nimi, setNimi] = useState('')
     const [namn, setNamn] = useState('')
     const [adress, setAdress] = useState('')
-    const [osoite, setOsoite] = useState(selected.address.split(',')[1])
+    const [osoite, setOsoite] = useState('')
+    // const [kaupunki, setKaupunki] = useState('')
     const [stad, setStad] = useState('')
     const [kapasiteet, setKapasiteet] = useState(10)
     const [operaattor, setOperaattor] = useState('CityBike Finland')
@@ -25,14 +28,20 @@ const AddStationModal = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         console.log(selected.address)
+        if (name === '' || nimi === ' ' || osoite === ' ') {
+            return alert('Please fill all the required fields')
+        }
         addStation({
             variables: {
-                name: selected.address.split(',')[0],
-                nimi: selected.address.split(',')[0],
+                // name: selected.address.split(',')[0],
+                name: name,
+                nimi: nimi,
                 namn: namn,
+                // osoite: selected.address.split(',')[1],
                 osoite: osoite,
                 adress: adress,
-                kaupunki: selected.address.split(',')[2],
+                kaupunki: selected.address.split(',').reverse()[1],
+                // kaupunki: kaupunki,
                 stad: stad,
                 operaattor: operaattor,
                 kapasiteet: kapasiteet,
@@ -51,7 +60,7 @@ const AddStationModal = () => {
             })
         },
         onError: (error) => {
-            setError(error.graphQLErrors[0].message)
+            setError(error)
         },
     })
 
@@ -100,23 +109,39 @@ const AddStationModal = () => {
                             </div>
                             <form onSubmit={onSubmit}>
                                 <div className="mb-3">
-                                    <label className="form-label">Name</label>
+                                    <label className="form-label">
+                                        Name{' '}
+                                        <span style={{ color: 'red' }}>
+                                            (* required)
+                                        </span>{' '}
+                                    </label>
                                     <input
                                         className="form-control"
                                         type="text"
                                         id="name"
-                                        value={selected.address.split(',')[0]}
-                                        readOnly
+                                        value={name}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
+                                        // readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Nimi</label>
+                                    <label className="form-label">
+                                        Nimi{' '}
+                                        <span style={{ color: 'red' }}>
+                                            (* required)
+                                        </span>{' '}
+                                    </label>
                                     <input
                                         className="form-control"
                                         type="text"
                                         id="nimi"
-                                        value={selected.address.split(',')[0]}
-                                        readOnly
+                                        value={nimi}
+                                        onChange={(e) =>
+                                            setNimi(e.target.value)
+                                        }
+                                        // readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -132,7 +157,12 @@ const AddStationModal = () => {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Osoite</label>
+                                    <label className="form-label">
+                                        Osoite{' '}
+                                        <span style={{ color: 'red' }}>
+                                            (* required)
+                                        </span>{' '}
+                                    </label>
                                     <input
                                         className="form-control"
                                         type="text"
@@ -141,6 +171,7 @@ const AddStationModal = () => {
                                         onChange={(e) =>
                                             setOsoite(e.target.value)
                                         }
+                                        // readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -157,13 +188,20 @@ const AddStationModal = () => {
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">
-                                        Kaupunki
+                                        Kaupunki{' '}
+                                        {/* <span style={{ color: 'red' }}>
+                                            (* required)
+                                        </span> */}
                                     </label>
                                     <input
                                         className="form-control"
                                         type="text"
                                         id="kaupunki"
-                                        value={selected.address.split(',')[2]}
+                                        value={
+                                            selected.address
+                                                .split(',')
+                                                .reverse()[1]
+                                        }
                                         readOnly
                                     />
                                 </div>

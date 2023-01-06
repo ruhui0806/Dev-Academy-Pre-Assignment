@@ -6,17 +6,23 @@ import LoadingSpinner from '../LoadingSpinner'
 //define map-view functional component
 function Map({ selected, setSelected }) {
     const center = useMemo(() => selected, [selected])
+    const style = { fontWeight: 'bold' }
     return (
         <div className="mb-3">
             <div className="mb-3">
                 <PlacesAutocomplete setSelected={setSelected} />
             </div>
             <p>
-                Address: {selected.address}; Latitude: {selected.lat};
-                Longitude: {selected.lng}; Post Code: {selected.zipcode}
+                <span style={style}>Address:</span> {selected.address}
+                <br />
+                <span style={style}>Latitude:</span> {selected.lat}
+                <br />
+                <span style={style}>Longitude:</span> {selected.lng}
+                <br />
+                <span style={style}>Post Code:</span> {selected.zipcode}
             </p>
             <div className="ratio ratio-16x9 mb-3">
-                <GoogleMap zoom={10} center={center}>
+                <GoogleMap zoom={16} center={center}>
                     {selected && <MarkerF position={selected} />}
                 </GoogleMap>
             </div>
