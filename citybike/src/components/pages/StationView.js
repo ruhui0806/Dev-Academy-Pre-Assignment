@@ -89,7 +89,15 @@ const StationView = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <UpdateStationModal station={station} />
+                    <div className="d-flex mb-3 gap-3">
+                        <UpdateStationModal station={station} />
+                        <Link
+                            to="/stations"
+                            className="btn btn-primary ms-auto "
+                        >
+                            Go Back
+                        </Link>
+                    </div>
                 </div>
             )}
             {!singleStation.loading && !singleStation.error && !mapLoading && (
@@ -97,12 +105,6 @@ const StationView = () => {
                     <StationMap x={Number(station.x)} y={Number(station.y)} />
                 </div>
             )}
-
-            <div className="d-flex mb-3 gap-3">
-                <Link to="/stations" className="btn btn-primary ms-auto ">
-                    Go Back
-                </Link>
-            </div>
         </div>
     )
 }
