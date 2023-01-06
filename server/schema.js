@@ -174,7 +174,7 @@ const allMutations = new GraphQLObjectType({
                 Namn: { type: GraphQLString },
                 Osoite: { type: GraphQLNonNull(GraphQLString) },
                 Adress: { type: GraphQLString },
-                Kaupunki: { type: GraphQLNonNull(GraphQLString) },
+                Kaupunki: { type: GraphQLString },
                 Stad: { type: GraphQLString },
                 Operaattor: { type: GraphQLString },
                 Kapasiteet: { type: GraphQLNonNull(GraphQLInt) },
@@ -207,6 +207,42 @@ const allMutations = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 return Station.findByIdAndRemove(args.id)
+            },
+        },
+
+        //update a station:
+        updateStationById: {
+            type: StationType,
+            args: {
+                ID: { type: GraphQLNonNull(GraphQLInt) },
+                Name: { type: GraphQLString },
+                Nimi: { type: GraphQLString },
+                Namn: { type: GraphQLString },
+                Osoite: { type: GraphQLString },
+                Adress: { type: GraphQLString },
+                Kaupunki: { type: GraphQLString },
+                Stad: { type: GraphQLString },
+                Operaattor: { type: GraphQLString },
+                Kapasiteet: { type: GraphQLInt },
+            },
+            resolve(parent, args) {
+                return Station.findOneAndUpdate(
+                    { ID: args.ID },
+                    {
+                        $set: {
+                            Name: args.Name,
+                            Nimi: args.Nimi,
+                            Namn: args.Namn,
+                            Osoite: args.Osoite,
+                            Adress: args.Adress,
+                            Kaupunki: args.Kaupunki,
+                            Stad: args.Stad,
+                            Operaattor: args.Operaattor,
+                            Kapasiteet: args.Kapasiteet,
+                        },
+                    },
+                    { new: true }
+                )
             },
         },
     },

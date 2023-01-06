@@ -1,82 +1,82 @@
 import React, { useState } from 'react'
-import Places from './places/Places'
-import { GET_ALL_STATIONS } from '../queries/queries'
-import { ADD_STATION } from '../queries/StationMutations'
-import { useMutation } from '@apollo/client'
-const AddStationModal = () => {
-    //autocomplete-form related variables:
-    const [selected, setSelected] = useState({
-        lat: 60.1718729,
-        lng: 24.9414217,
-        zipcode: '00100',
-        address: 'Helsingin päärautatieasema, Kaivokatu 1, Helsinki, Finland',
-    })
 
+import { GET_STATION, GET_ALL_STATIONS } from '../queries/queries'
+import { UPDATE_STATION } from '../queries/StationMutations'
+import { useMutation } from '@apollo/client'
+
+const UpdateStationModal = ({ station }) => {
     //new-station-related variables:
-    const [name, setName] = useState('')
-    const [nimi, setNimi] = useState('')
-    const [namn, setNamn] = useState('')
-    const [adress, setAdress] = useState('')
-    const [osoite, setOsoite] = useState('')
-    const [stad, setStad] = useState('')
-    const [kapasiteet, setKapasiteet] = useState(10)
+    const [name, setName] = useState(station.Name)
+    const [nimi, setNimi] = useState(station.Nimi)
+    const [namn, setNamn] = useState(station.Namn)
+    const [adress, setAdress] = useState(station.Adress)
+    const [osoite, setOsoite] = useState(station.Osoite)
+    const [kaupunki, setKaupunki] = useState(station.Kaupunki)
+    const [stad, setStad] = useState(station.Stad)
+    const [kapasiteet, setKapasiteet] = useState(station.Kapasiteet)
     const [operaattor, setOperaattor] = useState('CityBike Finland')
     const [error, setError] = useState('')
 
-    //submit add station form function:
-    const onSubmit = (e) => {
-        e.preventDefault()
-        console.log(selected.address)
-        if (name === '' || nimi === ' ' || osoite === ' ') {
-            return alert('Please fill all the required fields')
-        }
-        addStation({
-            variables: {
-                name: name,
-                nimi: nimi,
-                namn: namn,
-                osoite: osoite,
-                adress: adress,
-                kaupunki: selected.address.split(',').reverse()[1],
-                stad: stad,
-                operaattor: operaattor,
-                kapasiteet: kapasiteet,
-                latitude: selected.lat.toString(),
-                longitude: selected.lng.toString(),
-            },
-        })
-    }
     //add station query-mutations:
-    const [addStation] = useMutation(ADD_STATION, {
-        update(cache, { data: { addStation } }) {
-            const { stations } = cache.readQuery({ query: GET_ALL_STATIONS })
-            cache.writeQuery({
-                query: GET_ALL_STATIONS,
-                data: { stations: [...stations, addStation] },
-            })
+    const [updateStation] = useMutation(UPDATE_STATION, {
+        variables: {
+            ID: parseInt(station.ID),
+            name,
+            nimi,
+            namn,
+            osoite,
+            adress,
+            kaupunki,
+            stad,
+            operaattor,
+            kapasiteet,
         },
+        refetchQueries: [
+            // { query: GET_ALL_STATIONS },
+            { query: GET_STATION, variables: { idd: station.ID } },
+        ],
         onError: (error) => {
             setError(error)
         },
     })
-
+    //submit add station form function:
+    const onSubmit = (e) => {
+        e.preventDefault()
+        console.log(station.ID, station.id)
+        if (name === '' || nimi === '' || osoite === '') {
+            return alert('Please fill all the required fields')
+        }
+        console.log('debug 1')
+        updateStation({
+            name,
+            nimi,
+            namn,
+            osoite,
+            adress,
+            kaupunki,
+            stad,
+            operaattor,
+            kapasiteet,
+        })
+        console.log('debug 2')
+    }
     return (
         <div>
             <button
                 type="button"
-                id="addStationBtn"
+                id="updateStationBtn"
                 className="btn btn-secondary"
                 data-bs-toggle="modal"
-                data-bs-target="#addStationModal"
+                data-bs-target="#updateStationModal"
             >
                 <div className="d-flex align-items-center">
-                    <div>Add Station</div>
+                    <div>Update Station</div>
                 </div>
             </button>
             <div
                 className="modal fade"
-                id="addStationModal"
-                aria-labelledby="addStationModalLabel"
+                id="updateStationModal"
+                aria-labelledby="updateStationModalLabel"
                 aria-hidden="true"
             >
                 <div className="modal-dialog">
@@ -84,9 +84,9 @@ const AddStationModal = () => {
                         <div className="modal-header">
                             <h1
                                 className="modal-title fs-5"
-                                id="addStationModalLabel"
+                                id="updateStationModalLabel"
                             >
-                                Add New Bicycle Station
+                                Update current Bicycle Station
                             </h1>
                             <button
                                 type="button"
@@ -97,12 +97,6 @@ const AddStationModal = () => {
                         </div>
 
                         <div className="modal-body">
-                            <div>
-                                <Places
-                                    selected={selected}
-                                    setSelected={setSelected}
-                                />
-                            </div>
                             <form onSubmit={onSubmit}>
                                 <div className="mb-3">
                                     <label className="form-label">
@@ -119,7 +113,6 @@ const AddStationModal = () => {
                                         onChange={(e) =>
                                             setName(e.target.value)
                                         }
-                                        // readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -137,7 +130,6 @@ const AddStationModal = () => {
                                         onChange={(e) =>
                                             setNimi(e.target.value)
                                         }
-                                        // readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -167,7 +159,6 @@ const AddStationModal = () => {
                                         onChange={(e) =>
                                             setOsoite(e.target.value)
                                         }
-                                        // readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -190,12 +181,10 @@ const AddStationModal = () => {
                                         className="form-control"
                                         type="text"
                                         id="kaupunki"
-                                        value={
-                                            selected.address
-                                                .split(',')
-                                                .reverse()[1]
+                                        value={kaupunki}
+                                        onChange={(e) =>
+                                            setKaupunki(e.target.value)
                                         }
-                                        readOnly
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -218,7 +207,7 @@ const AddStationModal = () => {
                                         className="form-control"
                                         type="text"
                                         id="longitude"
-                                        value={selected.lng}
+                                        value={station.x}
                                         readOnly
                                     />
                                 </div>
@@ -230,7 +219,7 @@ const AddStationModal = () => {
                                         className="form-control"
                                         type="text"
                                         id="latitude"
-                                        value={selected.lat}
+                                        value={station.y}
                                         readOnly
                                     />
                                 </div>
@@ -279,4 +268,4 @@ const AddStationModal = () => {
     )
 }
 
-export default AddStationModal
+export default UpdateStationModal

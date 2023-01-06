@@ -1,18 +1,20 @@
 import React, { useState, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import LoadingSpinner from './LoadingSpinner'
-import StationMap from './StationMap'
+import LoadingSpinner from '../LoadingSpinner'
+import StationMap from '../StationMap'
+import UpdateStationModal from '../UpdateStationModal'
 import { useLoadScript } from '@react-google-maps/api'
 import {
     GET_STATION,
     COUNT_JOURNEY_START_FROM_HERE,
     COUNT_JOURNEY_END_AT_HERE,
-} from '../queries/queries'
+} from '../../queries/queries'
 
 const StationView = () => {
     //get the current station's information:
     const thisId = parseInt(useParams().id)
+    // console.log(thisId)
     const singleStation = useQuery(GET_STATION, {
         variables: {
             idd: thisId,
@@ -56,6 +58,7 @@ const StationView = () => {
                                 <th>Name</th>
                                 <th>ID</th>
                                 <th>Address</th>
+                                <th>City</th>
                                 <th>Journeys start from here</th>
                                 <th>Journeys end at here</th>
                             </tr>
@@ -65,6 +68,7 @@ const StationView = () => {
                                 <td>{station.Name}</td>
                                 <td>{station.ID}</td>
                                 <td>{station.Osoite}</td>
+                                <td>{station.Kaupunki}</td>
 
                                 {journeyStartCount.data && (
                                     <td>
@@ -85,6 +89,7 @@ const StationView = () => {
                             </tr>
                         </tbody>
                     </table>
+                    <UpdateStationModal station={station} />
                 </div>
             )}
             {!singleStation.loading && !singleStation.error && !mapLoading && (

@@ -3,11 +3,16 @@ import { gql } from '@apollo/client'
 const GET_STATION = gql`
     query findStationById($idd: Int!) {
         findStationById(id: $idd) {
+            Adress
+            ID
             Name
+            Nimi
+            Namn
             Osoite
             Kaupunki
-            ID
+            Stad
             Operaattor
+            Kapasiteet
             x
             y
             id
