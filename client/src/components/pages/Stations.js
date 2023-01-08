@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { gql, useQuery, useMutation } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import LoadingSpinner from '../LoadingSpinner'
 import { FaSort } from 'react-icons/fa'
 import Pagination from '../Pagination'

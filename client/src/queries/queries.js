@@ -87,7 +87,11 @@ const COUNT_JOURNEYS = gql`
         countAlljourneys
     }
 `
-
+const GET_MAP_API_KEY = gql`
+    query mapApiKey {
+        mapApiKey
+    }
+`
 export {
     GET_STATION,
     COUNT_JOURNEY_START_FROM_HERE,
@@ -96,4 +100,5 @@ export {
     COUNT_STATIONS,
     GET_JOURNEYS,
     COUNT_JOURNEYS,
+    GET_MAP_API_KEY,
 }

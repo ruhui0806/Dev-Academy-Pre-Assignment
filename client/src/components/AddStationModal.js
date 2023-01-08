@@ -3,6 +3,9 @@ import Places from './places/Places'
 import { GET_ALL_STATIONS } from '../queries/queries'
 import { ADD_STATION } from '../queries/StationMutations'
 import { useMutation } from '@apollo/client'
+import { GET_MAP_API_KEY } from '../queries/queries.js'
+import { useQuery } from '@apollo/client'
+import LoadingSpinner from './LoadingSpinner'
 const AddStationModal = () => {
     //autocomplete-form related variables:
     const [selected, setSelected] = useState({
@@ -46,6 +49,7 @@ const AddStationModal = () => {
             },
         })
     }
+
     //add station query-mutations:
     const [addStation] = useMutation(ADD_STATION, {
         update(cache, { data: { addStation } }) {
@@ -59,7 +63,9 @@ const AddStationModal = () => {
             setError(error)
         },
     })
-
+    const mapAPIresult = useQuery(GET_MAP_API_KEY)
+    if (mapAPIresult.error) return <p>Something Went Wrong</p>
+    if (mapAPIresult.loading) return <LoadingSpinner />
     return (
         <div>
             <button
@@ -101,6 +107,7 @@ const AddStationModal = () => {
                                 <Places
                                     selected={selected}
                                     setSelected={setSelected}
+                                    mapApiKey={mapAPIresult.data.mapApiKey}
                                 />
                             </div>
                             <form onSubmit={onSubmit}>

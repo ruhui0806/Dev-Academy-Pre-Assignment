@@ -7,6 +7,7 @@ import LoadingSpinner from '../LoadingSpinner'
 function Map({ selected, setSelected }) {
     const center = useMemo(() => selected, [selected])
     const style = { fontWeight: 'bold' }
+
     return (
         <div className="mb-3">
             <div className="mb-3">
@@ -31,17 +32,22 @@ function Map({ selected, setSelected }) {
 }
 
 //define final map functional component combining map and autocomplete components:
-export default function Places({ selected, setSelected }) {
+export default function Places({ selected, setSelected, mapApiKey }) {
     const [libraries] = useState(['places'])
+
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+        // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
         libraries,
+        googleMapsApiKey: mapApiKey,
     })
 
     if (!isLoaded) return <LoadingSpinner />
+
     return (
         <div>
-            {isLoaded && <Map selected={selected} setSelected={setSelected} />}
+            {{ isLoaded } && (
+                <Map selected={selected} setSelected={setSelected} />
+            )}
         </div>
     )
 }

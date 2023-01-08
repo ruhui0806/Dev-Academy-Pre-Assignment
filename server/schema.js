@@ -54,6 +54,12 @@ const StationType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
+        mapApiKey: {
+            type: GraphQLString,
+            resolve(parent, args) {
+                return process.env.REACT_APP_GOOGLE_MAP_API_KEY
+            },
+        },
         journeys: {
             type: new GraphQLList(JourneyType),
             args: {
