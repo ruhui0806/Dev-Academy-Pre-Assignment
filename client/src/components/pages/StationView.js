@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client'
 import LoadingSpinner from '../LoadingSpinner'
 import StationMap from '../StationMap'
 import UpdateStationModal from '../UpdateStationModal'
+import { GET_MAP_API_KEY } from '../../queries/queries.js'
 import { useLoadScript } from '@react-google-maps/api'
 import {
     GET_STATION,
@@ -32,11 +33,18 @@ const StationView = () => {
             idd: thisId,
         },
     })
-
+    const mapAPIresult = useQuery(GET_MAP_API_KEY)
+    let mapAPIkey
     //station view on the map:
+    mapAPIkey =
+        !mapAPIresult.loading &&
+        !mapAPIresult.error &&
+        mapAPIresult.data.mapApiKey
     const { mapLoading } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+        googleMapsApiKey: mapAPIkey,
     })
+    if (mapAPIresult.error) return <p>Something Went Wrong</p>
+    if (mapAPIresult.loading) return <LoadingSpinner />
 
     if (journeyStartCount.loading) return <LoadingSpinner />
     if (journeyStartCount.error) return <div>Error!</div>
@@ -47,7 +55,6 @@ const StationView = () => {
     if (mapLoading) return <LoadingSpinner />
 
     const station = singleStation.data.findStationById
-
     return (
         <div>
             {!singleStation.loading && !singleStation.error && (
