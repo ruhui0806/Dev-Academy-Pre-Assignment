@@ -137,6 +137,7 @@ const Journeys = () => {
                             <button
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="sort-by-departure-station"
                                 onClick={() =>
                                     requestSort('Departure_station_name')
                                 }
@@ -151,6 +152,7 @@ const Journeys = () => {
                             <button
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="sort-by-return-station"
                                 onClick={() =>
                                     requestSort('Return_station_name')
                                 }
@@ -164,6 +166,7 @@ const Journeys = () => {
                             <button
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="sort-by-distance"
                                 onClick={() =>
                                     requestSort('Covered_distance_m')
                                 }
@@ -178,6 +181,7 @@ const Journeys = () => {
                             <button
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
+                                id="sort-by-duration"
                                 onClick={() => requestSort('Duration_sec')}
                             >
                                 {' '}
