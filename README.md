@@ -6,7 +6,7 @@ This is a repo for dev academy 2023 exercise: Helsinki city bike app using: Reac
 
 ---
 
-Project structure:
+#Project structure:
 
 ├── index.js
 
@@ -20,7 +20,7 @@ Project structure:
 
 ---
 
-Contents of the exercise:
+#Contents of the exercise:
 
 0. Data import:
 
@@ -64,14 +64,17 @@ Station location on the map, The average distance of a journey starting from the
 
 ---
 
-Usage
+#Install:
 
-Install:
+1.  Install Docker on your computer (for linux system, use the correct guide for your distribution): https://docs.docker.com/get-docker/
 
-1. Install Docker on your computer (for linux system, use the correct guide for your distribution): https://docs.docker.com/get-docker/
+2.  Clone this repository
 
-2. Clone this repository
+3.  To run the application properly, a working google map api key and MongoDB URI are required. Used keys in .env file: `REACT_APP_GOOGLE_MAP_API_KEY, MONGO_URI`
 
-3. To run the application properly, a working google map api key and MongoDB URI are required. Used keys in .env file: `REACT_APP_GOOGLE_MAP_API_KEY, MONGO_URI`
+4.  Run the application in docker: docker compose up --build
 
-4. Run the application in docker: docker compose up --build
+5.  By default the application will run on localhost:9000, but you can change the ports in docker-compose.yml before run the build command in the previous step:
+
+        - 9000:9000
+            └─change the first "9000" to the port you want
