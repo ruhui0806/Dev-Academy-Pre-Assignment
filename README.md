@@ -2,7 +2,7 @@
 
 # Description:
 
-This is a repo for dev academy 2023 exercise: Helsinki city bike app using: React, Apollo client, Node.js, express, GraphQL, MongoDB, mongoose. Below are the details of the exercise and instructions for download:
+This is a repo for dev academy 2023 exercise: Helsinki city bike app using: React, Apollo client, Node.js, express, GraphQL, MongoDB, mongoose. Below are the details of the exercise and instructions for installation:
 
 ---
 
@@ -40,7 +40,7 @@ Pagination, Ordering per column, Searching by departure/return station names, an
 
 2.1 List all the stations
 
-In the "Station" page, Pagination, Searching, ordering per column, Delete a station are included. Single station view can be found by clicking on each station row.
+In the "Station" page, Pagination, Searching, ordering per column, and deleting a station are included. Single station view can be found by clicking on each station row.
 
 In the "Single Station view" page, Station name, Station address, Total number of journeys starting from the station, Total number of journeys ending at the station are included.
 
@@ -54,7 +54,7 @@ Station location on the map, The average distance of a journey starting from the
 
 3.2 Items per page setup (10/15/20).
 
-3.3 Running backend in Docker Running backend in Cloud (MongoDB).
+3.3 Running backend in Docker container, Running database in Cloud (MongoDB).
 
 3.4 Implement E2E tests Create UI for adding bicycle stations Create UI for updating. bicycle stations information.
 
@@ -72,6 +72,6 @@ Install:
 
 2. Clone this repository
 
-3. to run the application properly, a google map api key is required
+3. To run the application properly, a working google map api key and MongoDB URI are required. Used keys in .env file: `REACT_APP_GOOGLE_MAP_API_KEY, MONGO_URI`
 
 4. Run the application in docker: docker compose up --build
