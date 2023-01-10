@@ -42,11 +42,11 @@ const UpdateStationModal = ({ station }) => {
     //submit add station form function:
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log(station.ID, station.id)
+
         if (name === '' || nimi === '' || osoite === '') {
             return alert('Please fill all the required fields')
         }
-        console.log('debug 1')
+
         updateStation({
             name,
             nimi,
@@ -58,7 +58,6 @@ const UpdateStationModal = ({ station }) => {
             operaattor,
             kapasiteet,
         })
-        console.log('debug 2')
     }
     return (
         <div>
