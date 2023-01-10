@@ -72,7 +72,9 @@ Station location on the map, The average distance of a journey starting from the
 
 3.  To run the application properly, a working google map api key and MongoDB URI are required. Used keys in .env file: `REACT_APP_GOOGLE_MAP_API_KEY, MONGO_URI`
 
-4.  Run the application in docker: docker compose up --build
+4.  Run the application in docker:
+
+        docker compose up --build
 
 5.  By default the application will run on localhost:9000, but you can change the ports in docker-compose.yml before run the build command in the previous step:
 
